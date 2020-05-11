@@ -1,2 +1,10 @@
 <app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div class="row">
+  <div class="col-4" [ngClass]="[session ? 'order-md-2' : '']">
+    <app-session></app-session>
+  </div>
+  <div class="col-8" [ngClass]="[session ? 'order-md-1' : '']">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-footer class="footer"></app-footer>

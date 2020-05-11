@@ -32,7 +32,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BuckitComponent,
     NavbarComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    BrowserAnimationsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
