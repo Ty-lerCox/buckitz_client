@@ -24,10 +24,20 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
+          <fa-icon
+            [icon]="faHome"
+            style="padding-right: 15px; color: #f44348;"
+          ></fa-icon>
           Home
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Vehicles</a>
+          <a class="dropdown-item" href="#">
+            <fa-icon
+              [icon]="faShip"
+              style="padding-right: 15px; color: #f44348;"
+            ></fa-icon>
+            Vehicles
+          </a>
         </div>
       </li>
       <li *ngIf="false" class="nav-item">
