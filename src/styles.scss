@@ -1,12 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@import "~bootstrap/scss/bootstrap";
+@import "assets/bootstrap.css";
+
+$blue: #182338;
+$green: #198D0C;
+$gray-800: #202B43;
+$gray-600: #4C5F80;
+$input-bg: #182338;
+$white: #ffffff;
+$body-color: $white;
+$figure-caption-color: $white;
+$code-color: $white;
+$pagination-color: $white;
+$jumbotron-color: $white;
+$modal-content-color: $white;
+$toast-color: $white;
+$gray-700: #ffffff;
+$input-color: #ffffff;
+$input-border-color: transparent;
 
 html,
 body {
   height: 100%;
-  background-color: #131C2E;
+  background-color: #131c2e;
   color: #ffffff;
 }
 body {
