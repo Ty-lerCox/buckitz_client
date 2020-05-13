@@ -25,15 +25,28 @@ export class SessionService {
   ) {}
 
   getSession(sessionId: string) {
+    let id = '';
     this.firestore
       .collection('session')
       .doc(sessionId)
       .get()
       .subscribe((session: any) => {
-        console.log(session);
+        id = session.id;
+        this.firestore
+          .collection('user', (ref) => ref.where('user_session_id', '==', id))
+          .snapshotChanges()
+          .subscribe((data: any) => {
+            this.users = data.map((e) => {
+              return {
+                id: e.payload.doc.id,
+                ...(e.payload.doc.data() as User),
+              } as User;
+            });
+            this.sessionId = id;
+            this.sessionChanged.emit(true);
+            this.storage.set('sessionId', id).subscribe(() => {});
+          });
       });
-    this.firestore.collection
-    // this.storage.set('sessionId', sessionId).subscribe(() => {});
   }
 
   async createSession(users: User[]) {
@@ -44,11 +57,7 @@ export class SessionService {
         users.forEach((user: User) => {
           this.createUser(user, docRef.id);
         });
-        this.sessionId = docRef.id;
-        this.storage.set('sessionId', docRef.id).subscribe(() => {});
-        this.users = users;
-        this.storage.set('users', users).subscribe(() => {});
-        this.sessionChanged.emit(true);
+        this.getSession(docRef.id);
       })
       .catch((error) => console.error('Error adding document: ', error));
   }
@@ -71,11 +80,7 @@ export class SessionService {
     this.storage.get('sessionId').subscribe((value: string) => {
       this.sessionId = value;
       if (this.isDefined(value)) {
-        this.storage.get('users').subscribe((users: User[]) => {
-          this.users = users;
-          console.log(value);
-          this.sessionChanged.emit(true);
-        });
+        this.getSession(value);
       }
     });
   }
@@ -84,7 +89,35 @@ export class SessionService {
     return this.users;
   }
 
+  updateUsers(): void {
+    this.users.forEach((user: User) => {
+      if (this.isDefined(user.id)) {
+        this.firestore
+          .doc('user/' + user.id)
+          .update(user)
+          .catch((err) => {});
+      } else {
+        this.createUser(user, this.sessionId);
+      }
+    });
+  }
+
+  deleteUser(user: User) {
+    this.firestore.doc('user/' + user.id).delete();
+  }
+
   isDefined<T>(value: T | undefined | null): value is T {
     return (value as any) !== undefined && (value as any) !== null;
+  }
+
+  getSessionId(): string {
+    return this.sessionId;
+  }
+
+  clearSession() {
+    this.storage.clear();
+    this.sessionId = null;
+    this.users = [{}];
+    this.sessionChanged.emit(false);
   }
 }

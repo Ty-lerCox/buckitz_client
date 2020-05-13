@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.sessionService.sessionChanged.subscribe((session: boolean) => {
       this.session = session;
-      console.log(session);
     });
   }
 }

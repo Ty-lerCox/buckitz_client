@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 // External Components
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 // Components
 import { AppComponent } from './app.component';
@@ -46,6 +47,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     BrowserAnimationsModule,
     FontAwesomeModule,
     FormsModule,
+    ClipboardModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
   ],

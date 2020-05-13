@@ -30,16 +30,9 @@ export class SessionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sessionService.getSessions().subscribe((data) => {
-      this.sessions = data.map((session) => {
-        return {
-          id: session.payload.doc.id,
-          ...(session.payload.doc.data() as Session),
-        } as Session;
-      });
-    });
     this.sessionService.sessionChanged.subscribe((session: boolean) => {
       this.session = session;
+      this.sessionId = this.sessionService.getSessionId();
       this.users = this.sessionService.getUsers();
     });
   }
@@ -59,13 +52,16 @@ export class SessionComponent implements OnInit {
 
   join(): void {
     if (this.isJoining) {
-      this.sessionService.getSession(this.sessionId).subscribe(())
+      this.sessionService.getSession(this.sessionId);
+      this.isJoining = false;
     } else {
       this.isJoining = true;
     }
   }
 
-  save(): void {}
+  save(): void {
+    this.sessionService.updateUsers();
+  }
 
   delete(event: any): void {
     const value = event.split(' ');
@@ -80,6 +76,7 @@ export class SessionComponent implements OnInit {
     const index = this.users.indexOf(user, 0);
     if (index > -1) {
       this.users.splice(index, 1);
+      this.sessionService.deleteUser(user);
     }
   }
 
@@ -93,5 +90,9 @@ export class SessionComponent implements OnInit {
       });
     }
     return result;
+  }
+
+  exitSession() {
+    this.sessionService.clearSession();
   }
 }
