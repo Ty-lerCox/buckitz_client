@@ -16,12 +16,14 @@ import { SessionService } from './session.service';
   styleUrls: ['./session.component.scss'],
 })
 export class SessionComponent implements OnInit {
-  session = false;
-  faPlus = faPlus;
-  faMinus = faMinus;
-  users: User[] = [{}];
-  sessions: Session[] = [];
-  jobs: Job[] = Jobs;
+  public session = false;
+  public faPlus = faPlus;
+  public faMinus = faMinus;
+  public users: User[] = [{}];
+  public sessions: Session[] = [];
+  public jobs: Job[] = Jobs;
+  public isJoining = false;
+  public sessionId = null;
 
   constructor(private sessionService: SessionService) {
     this.sessionService.getLocalSession();
@@ -56,7 +58,11 @@ export class SessionComponent implements OnInit {
   }
 
   join(): void {
-    this.sessionService.getLocalSession();
+    if (this.isJoining) {
+      this.sessionService.getSession(this.sessionId).subscribe(())
+    } else {
+      this.isJoining = true;
+    }
   }
 
   save(): void {}

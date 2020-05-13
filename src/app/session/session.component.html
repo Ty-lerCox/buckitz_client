@@ -105,6 +105,18 @@
         </button>
       </div>
     </div>
+    <div *ngIf="isJoining" class="row" style="padding-top: 35px;">
+      <div class="col-md-12">
+        <input
+          type="text"
+          id="sessionId"
+          placeholder="Session ID"
+          class="form-control"
+          autocomplete="off"
+          [(ngModel)]="sessionId"
+        />
+      </div>
+    </div>
     <div class="row" style="padding-top: 10px;">
       <div class="col-md-12">
         <button class="btn btn-primary col-md-12" (click)="join()">

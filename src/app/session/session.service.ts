@@ -24,8 +24,16 @@ export class SessionService {
     private storage: StorageMap
   ) {}
 
-  getSessions() {
-    return this.firestore.collection('session').snapshotChanges();
+  getSession(sessionId: string) {
+    this.firestore
+      .collection('session')
+      .doc(sessionId)
+      .get()
+      .subscribe((session: any) => {
+        console.log(session);
+      });
+    this.firestore.collection
+    // this.storage.set('sessionId', sessionId).subscribe(() => {});
   }
 
   async createSession(users: User[]) {
