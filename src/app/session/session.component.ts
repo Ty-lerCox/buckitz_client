@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // Interfaces & Settings
-import { Session, User } from './settings';
+import { Session, User, Job, Jobs } from './settings';
 
 // External Components
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -21,24 +21,7 @@ export class SessionComponent implements OnInit {
   faMinus = faMinus;
   users: User[] = [{}];
   sessions: Session[] = [];
-  jobs: any[] = [
-    {
-      name: 'Software Engineer I',
-      income: 82000,
-    },
-    {
-      name: 'Software Engineer II',
-      income: 100000,
-    },
-    {
-      name: 'Software Engineer III',
-      income: 110000,
-    },
-    {
-      name: 'Software Engineer Senior',
-      income: 120000,
-    },
-  ];
+  jobs: Job[] = Jobs;
 
   constructor(private sessionService: SessionService) {
     this.sessionService.getLocalSession();
@@ -98,14 +81,11 @@ export class SessionComponent implements OnInit {
     let result = 0;
     if (this.users) {
       this.users.forEach((user: User) => {
-        result += user.user_income;
+        if (user.user_income > 0) {
+          result += user.user_income;
+        }
       });
     }
     return result;
-  }
-
-  currencyInputChanged(value) {
-    var num = value.replace(/[$,]/g, '');
-    return Number(num);
   }
 }

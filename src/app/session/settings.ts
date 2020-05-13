@@ -9,3 +9,27 @@ export interface User {
   user_name?: string;
   user_session_id?: string;
 }
+
+export interface Job {
+  name: string;
+  income: number;
+}
+
+export const Jobs = [
+  {
+    name: 'Software Engineer I',
+    income: 82000,
+  },
+  {
+    name: 'Software Engineer II',
+    income: 100000,
+  },
+  {
+    name: 'Software Engineer III',
+    income: 110000,
+  },
+  {
+    name: 'Software Engineer Senior',
+    income: 120000,
+  },
+];
