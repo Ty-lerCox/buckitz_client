@@ -83,7 +83,15 @@
       </div>
       <hr />
     </div>
-    <div *ngIf="!session" class="row" style="padding-top: 85px;">
+    <div class="row" style="text-align: center;">
+      <div class="col-12">
+        Total Available Income:
+      </div>
+      <div class="col-12">
+        {{ getTotalIncome() | currency }}
+      </div>
+    </div>
+    <div *ngIf="!session" class="row" style="padding-top: 65px;">
       <div class="col-md-12">
         <button class="btn btn-success col-md-12" (click)="create()">
           Create Session

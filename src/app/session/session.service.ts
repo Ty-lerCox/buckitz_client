@@ -63,8 +63,8 @@ export class SessionService {
     this.storage.get('sessionId').subscribe((value: string) => {
       this.sessionId = value;
       if (value !== null) {
-        this.storage.get('users').subscribe((user: User) => {
-          this.users.push(user);
+        this.storage.get('users').subscribe((users: User[]) => {
+          this.users = users;
           this.sessionChanged.emit(true);
         });
       }

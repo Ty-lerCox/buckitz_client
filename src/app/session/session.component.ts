@@ -75,4 +75,12 @@ export class SessionComponent implements OnInit {
       this.users.splice(index, 1);
     }
   }
+
+  getTotalIncome(): number {
+    let result = 0;
+    this.users.forEach((user: User) => {
+      result += user.user_income;
+    });
+    return result;
+  }
 }
