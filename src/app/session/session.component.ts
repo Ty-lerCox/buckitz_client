@@ -78,9 +78,11 @@ export class SessionComponent implements OnInit {
 
   getTotalIncome(): number {
     let result = 0;
-    this.users.forEach((user: User) => {
-      result += user.user_income;
-    });
+    if (this.users) {
+      this.users.forEach((user: User) => {
+        result += user.user_income;
+      });
+    }
     return result;
   }
 }

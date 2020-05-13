@@ -62,9 +62,10 @@ export class SessionService {
   getLocalSession(): void {
     this.storage.get('sessionId').subscribe((value: string) => {
       this.sessionId = value;
-      if (value !== null) {
+      if (this.isDefined(value)) {
         this.storage.get('users').subscribe((users: User[]) => {
           this.users = users;
+          console.log(value);
           this.sessionChanged.emit(true);
         });
       }
@@ -73,5 +74,9 @@ export class SessionService {
 
   getUsers(): User[] {
     return this.users;
+  }
+
+  isDefined<T>(value: T | undefined | null): value is T {
+    return (value as any) !== undefined && (value as any) !== null;
   }
 }
