@@ -67,4 +67,8 @@ export class SessionService {
       });
     });
   }
+
+  getUsers(): User[] {
+    return this.users;
+  }
 }

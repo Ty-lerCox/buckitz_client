@@ -16,8 +16,9 @@ import { SessionService } from './session.service';
   styleUrls: ['./session.component.scss'],
 })
 export class SessionComponent implements OnInit {
+  session = false;
   faPlus = faPlus;
-  users: User[] = [{}];
+  users = [];
   sessions: Session[] = [];
 
   constructor(private sessionService: SessionService) {
@@ -32,6 +33,11 @@ export class SessionComponent implements OnInit {
           ...(session.payload.doc.data() as Session),
         } as Session;
       });
+    });
+    this.sessionService.sessionChanged.subscribe((session: boolean) => {
+      this.session = session;
+      this.users = this.sessionService.getUsers();
+      console.log(this.users[0]);
     });
   }
 

@@ -1,9 +1,10 @@
 <div class="container">
   <div class="session rounded">
-    <div *ngFor="let user of users">
+    <div *ngFor="let user of users[0]">
       <div class="row">
         <div class="col-md-10 col-xs-12" style="font-size: 22px;">
-          Start Session
+          <span *ngIf="!session">Start Session</span>
+          <span *ngIf="session">Manage Session</span>
         </div>
         <div class="col-md-2 col-xs-12" style="text-align: right;">
           <button class="btn" style="line-height: 0.25;">
@@ -37,15 +38,18 @@
               >
               <span *ngIf="!user.user_job_title">Job Title</span>
             </button>
-            <div
-              ngbDropdownMenu
-              aria-labelledby="dropdownBasic1"
-            >
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button
                 ngbDropdownItem
-                (click)="user.user_job_title = 'Software Engineer'"
+                (click)="
+                  user.user_job_title = 'Software Engineer I';
+                  user.user_income = 100000
+                "
               >
-                Software Engineer
+                Software Engineer I - $100,000
+              </button>
+              <button ngbDropdownItem (click)="user.user_job_title = 'Other'">
+                Other
               </button>
             </div>
           </div>
@@ -64,13 +68,17 @@
         </div>
       </div>
     </div>
-    <div class="row" style="padding-top: 85px;">
+    <div *ngIf="!session" class="row" style="padding-top: 85px;">
       <div class="col-md-12">
-        <button
-          class="btn btn-success col-md-12"
-          (click)="create()"
-        >
+        <button class="btn btn-success col-md-12" (click)="create()">
           Create Session
+        </button>
+      </div>
+    </div>
+    <div *ngIf="session" class="row" style="padding-top: 85px;">
+      <div class="col-md-12">
+        <button class="btn btn-primary col-md-12" (click)="save()">
+          Save Session
         </button>
       </div>
     </div>
@@ -80,18 +88,6 @@
           Join Session
         </button>
       </div>
-    </div>
-    <div class="row" style="padding-top: 10px;">
-      <div class="col-md-12">
-        <button class="btn btn-primary col-md-12" (click)="save()">
-          Save Session
-        </button>
-      </div>
-    </div>
-    <div *ngFor="let session of sessions">
-      <p (click)="delete($event.target.textContent)">
-        {{ session.id }} - {{ session.session_save_date }}
-      </p>
     </div>
   </div>
 </div>
