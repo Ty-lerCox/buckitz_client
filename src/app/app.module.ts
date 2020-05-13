@@ -1,12 +1,31 @@
+// Core
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
+
+// External Components
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+
+// Components
+import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SessionComponent } from './session/session.component';
 import { FooterComponent } from './footer/footer.component';
+import { WelcomeComponent } from './home/welcome/welcome.component';
+import { BuckitListComponent } from './home/buckit-list/buckit-list.component';
+import { CategoryListComponent } from './home/category-list/category-list.component';
+import { CategoryComponent } from './home/category-list/category/category.component';
+import { BuckitComponent } from './home/buckit-list/buckit/buckit.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -14,8 +33,24 @@ import { FooterComponent } from './footer/footer.component';
     HomeComponent,
     SessionComponent,
     FooterComponent,
+    WelcomeComponent,
+    BuckitListComponent,
+    CategoryListComponent,
+    CategoryComponent,
+    BuckitComponent,
+    NavbarComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    FontAwesomeModule,
+    FormsModule,
+    ClipboardModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

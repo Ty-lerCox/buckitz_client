@@ -1,0 +1,16 @@
+.navbar {
+  min-height: 52px;
+  background-color: #0e1726;
+  color: #ffffff;
+  padding-left: 70px;
+}
+.navbar-brand {
+  margin-right: 2rem;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 1);
+}
+.dropdown-toggle::after {
+  border-top-color: #4c5f80;
+  border-bottom-color: #4c5f80;
+}

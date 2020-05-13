@@ -1,1 +1,145 @@
-<p>session works!</p>
+<div class="container">
+  <div class="session rounded">
+    <div class="row">
+      <div class="col-md-10 col-xs-12" style="font-size: 22px;">
+        <span *ngIf="!session">Start Session</span>
+        <span *ngIf="session">Manage Session</span>
+      </div>
+      <div class="col-md-2 col-xs-12" style="text-align: right;">
+        <button class="btn" style="line-height: 0.25;" (click)="addUser()">
+          <fa-icon [icon]="faPlus" style="color: #21aa11;"></fa-icon>
+        </button>
+      </div>
+    </div>
+    <div *ngFor="let user of users">
+      <div class="row" style="padding-top: 15px;">
+        <div class="col-md-12">
+          <input
+            type="text"
+            id="name"
+            placeholder="Name"
+            class="form-control"
+            autocomplete="off"
+            [(ngModel)]="user.user_name"
+          />
+        </div>
+      </div>
+      <div class="row" style="padding-top: 10px;">
+        <div class="col-md-12">
+          <div ngbDropdown class="d-inline-block col-md-12">
+            <button
+              class="btn btn-primary col-md-12"
+              id="dropdownBasic1"
+              style="color: #4c5f80;"
+              ngbDropdownToggle
+            >
+              <span *ngIf="user.user_job_title" style="color: #ffffff;">
+                {{ user.user_job_title }}</span
+              >
+              <span *ngIf="!user.user_job_title">Job Title</span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button
+                *ngFor="let job of jobs"
+                ngbDropdownItem
+                (click)="
+                  user.user_job_title = job.name; user.user_income = job.income
+                "
+              >
+                {{ job.name }} - {{ job.income | currency: "USD" }}
+              </button>
+              <button ngbDropdownItem (click)="user.user_job_title = 'Other'">
+                Other
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="padding-top: 10px;">
+        <div class="col-md-12">
+          <input
+            type="number"
+            id="income"
+            placeholder="Yearly Income"
+            class="form-control"
+            autocomplete="off"
+            [(ngModel)]="user.user_income"
+          />
+        </div>
+      </div>
+      <div class="row" *ngIf="users.indexOf(user) !== 0">
+        <div class="col-md-10 col-xs-12"></div>
+        <div class="col-md-2 col-xs-12" style="text-align: right;">
+          <button
+            class="btn btn-default"
+            style="padding-top: 0px; padding-bottom: 0px;"
+            (click)="removeUser(user)"
+          >
+            <span style="color: #f44348; font-size: 8px; line-height: 1px;">
+              Remove
+            </span>
+          </button>
+        </div>
+      </div>
+      <hr />
+    </div>
+    <div class="row" *ngIf="session" style="text-align: center;">
+      <div class="col-12">
+        Total Available Income:
+      </div>
+      <div class="col-12">
+        {{ getTotalIncome() | currency }}
+      </div>
+    </div>
+    <div *ngIf="!session" class="row" style="padding-top: 65px;">
+      <div class="col-md-12">
+        <button class="btn btn-success col-md-12" (click)="create()">
+          Create Session
+        </button>
+      </div>
+    </div>
+    <div *ngIf="session" class="row" style="padding-top: 85px;">
+      <div class="col-md-12">
+        <button class="btn btn-primary col-md-12" (click)="save()">
+          Save Session
+        </button>
+      </div>
+    </div>
+    <div *ngIf="isJoining" class="row" style="padding-top: 35px;">
+      <div class="col-md-12">
+        <input
+          type="text"
+          id="sessionId"
+          placeholder="Session ID"
+          class="form-control"
+          autocomplete="off"
+          [(ngModel)]="sessionId"
+        />
+      </div>
+    </div>
+    <div>
+      <div *ngIf="session" class="col-md-12" style="padding-top: 10px;">
+        <button
+          class="btn btn-primary col-md-12"
+          [cdkCopyToClipboard]="sessionId"
+        >
+          Copy Session ID
+        </button>
+      </div>
+    </div>
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-md-12">
+        <button class="btn btn-primary col-md-12" (click)="join()">
+          Join Session
+        </button>
+      </div>
+    </div>
+    <div>
+      <div *ngIf="session" class="col-md-12" style="padding-top: 10px;">
+        <button class="btn btn-primary col-md-12" (click)="exitSession()">
+          Exit Session
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
