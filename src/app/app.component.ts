@@ -1,5 +1,8 @@
 // Core
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+// Services
+import { SessionService } from './session/session.service';
 
 // External Components
 
@@ -8,8 +11,15 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  session = false;
+export class AppComponent implements OnInit {
+  public session = false;
+  public title = 'buckitz';
 
-  title = 'buckitz';
+  constructor(private sessionService: SessionService) {}
+
+  ngOnInit(): void {
+    this.sessionService.sessionChanged.subscribe((session: boolean) => {
+      this.session = session;
+    });
+  }
 }
