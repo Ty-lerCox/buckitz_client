@@ -28,7 +28,7 @@ export class SessionService {
     return this.firestore.collection('session').snapshotChanges();
   }
 
-  createSession(users: User[]) {
+  async createSession(users: User[]) {
     return this.firestore
       .collection('session')
       .add({ session_save_date: Date.now() })
@@ -40,6 +40,7 @@ export class SessionService {
         this.storage.set('sessionId', docRef.id).subscribe(() => {});
         this.users = users;
         this.storage.set('users', users).subscribe(() => {});
+        this.sessionChanged.emit(true);
       })
       .catch((error) => console.error('Error adding document: ', error));
   }
@@ -61,10 +62,12 @@ export class SessionService {
   getLocalSession(): void {
     this.storage.get('sessionId').subscribe((value: string) => {
       this.sessionId = value;
-      this.storage.get('users').subscribe((user: User) => {
-        this.users.push(user);
-        this.sessionChanged.emit(true);
-      });
+      if (value !== null) {
+        this.storage.get('users').subscribe((user: User) => {
+          this.users.push(user);
+          this.sessionChanged.emit(true);
+        });
+      }
     });
   }
 

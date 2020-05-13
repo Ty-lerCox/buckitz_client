@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Session, User } from './settings';
 
 // External Components
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 // Services
 import { SessionService } from './session.service';
@@ -18,7 +18,8 @@ import { SessionService } from './session.service';
 export class SessionComponent implements OnInit {
   session = false;
   faPlus = faPlus;
-  users = [];
+  faMinus = faMinus;
+  users: User[] = [{}];
   sessions: Session[] = [];
 
   constructor(private sessionService: SessionService) {
@@ -37,19 +38,18 @@ export class SessionComponent implements OnInit {
     this.sessionService.sessionChanged.subscribe((session: boolean) => {
       this.session = session;
       this.users = this.sessionService.getUsers();
-      console.log(this.users[0]);
     });
   }
 
   create(): void {
-    if (this.users[0].user_name === undefined) {
-      if (this.users[0].user_income === undefined) {
-        if (this.users[0].user_job_title === undefined) {
-          this.users[0].user_name = 'guest';
-          this.users[0].user_income = 100000;
-          this.users[0].user_job_title = 'Other';
-        }
-      }
+    if (
+      this.users[0].user_name === undefined &&
+      this.users[0].user_income === undefined &&
+      this.users[0].user_job_title === undefined
+    ) {
+      this.users[0].user_name = 'guest';
+      this.users[0].user_income = 100000;
+      this.users[0].user_job_title = 'Other';
     }
     this.sessionService.createSession(this.users);
   }
@@ -63,5 +63,16 @@ export class SessionComponent implements OnInit {
   delete(event: any): void {
     const value = event.split(' ');
     this.sessionService.deleteSession(value[0]);
+  }
+
+  addUser(): void {
+    this.users.push({});
+  }
+
+  removeUser(user: User): void {
+    const index = this.users.indexOf(user, 0);
+    if (index > -1) {
+      this.users.splice(index, 1);
+    }
   }
 }
