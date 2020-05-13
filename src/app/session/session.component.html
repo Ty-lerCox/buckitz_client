@@ -40,13 +40,13 @@
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button
+                *ngFor="let job of jobs"
                 ngbDropdownItem
                 (click)="
-                  user.user_job_title = 'Software Engineer I';
-                  user.user_income = 100000
+                  user.user_job_title = job.name; user.user_income = job.income
                 "
               >
-                Software Engineer I - $100,000
+                {{ job.name }} - {{ job.income | currency: "USD" }}
               </button>
               <button ngbDropdownItem (click)="user.user_job_title = 'Other'">
                 Other

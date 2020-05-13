@@ -21,6 +21,24 @@ export class SessionComponent implements OnInit {
   faMinus = faMinus;
   users: User[] = [{}];
   sessions: Session[] = [];
+  jobs: any[] = [
+    {
+      name: 'Software Engineer I',
+      income: 82000,
+    },
+    {
+      name: 'Software Engineer II',
+      income: 100000,
+    },
+    {
+      name: 'Software Engineer III',
+      income: 110000,
+    },
+    {
+      name: 'Software Engineer Senior',
+      income: 120000,
+    },
+  ];
 
   constructor(private sessionService: SessionService) {
     this.sessionService.getLocalSession();
@@ -84,5 +102,10 @@ export class SessionComponent implements OnInit {
       });
     }
     return result;
+  }
+
+  currencyInputChanged(value) {
+    var num = value.replace(/[$,]/g, '');
+    return Number(num);
   }
 }
