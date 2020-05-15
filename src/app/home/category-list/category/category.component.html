@@ -1,11 +1,18 @@
 <div class="row card">
   <div class="col-12">
-    <div class="row">
-      <div class="col 8">
-        img
+    <div class="row card-body">
+      <div class="col-8">
+        <img
+          src="{{ category.img }}"
+          class="img-responsive"
+          style="padding: 10px; width: 100%; border-radius: 14px;"
+        />
       </div>
-      <div class="col 4">
-        title
+      <div
+        class="col-4"
+        style="display: flex; justify-content: center; align-items: center;"
+      >
+        {{ category.title }}
       </div>
     </div>
   </div>

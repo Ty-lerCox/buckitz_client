@@ -1,1 +1,23 @@
-<p>filter works!</p>
+<div style="margin-top: 3.5vh; margin-left: 2.5vw; margin-right: 4vw;">
+  <div
+    class="row rounded"
+    style="
+      background-color: #202b43;
+      height: 64px;
+      padding-top: 15px;
+      padding-right: 2px;
+      padding-left: 2px;
+    "
+  >
+    <div class="col-12">
+      <app-button-checkbox
+        (valueChanged)="desc1Changed($event)"
+        [options]="desc1"
+      ></app-button-checkbox>
+      <app-button-checkbox
+        (valueChanged)="desc2Changed($event)"
+        [options]="desc2"
+      ></app-button-checkbox>
+    </div>
+  </div>
+</div>
