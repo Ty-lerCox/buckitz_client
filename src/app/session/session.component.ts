@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Session, User, Job, Jobs } from './settings';
 
 // External Components
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus, faBars } from '@fortawesome/free-solid-svg-icons';
 
 // Services
 import { SessionService } from './session.service';
@@ -18,12 +18,14 @@ import { SessionService } from './session.service';
 export class SessionComponent implements OnInit {
   public session = false;
   public faPlus = faPlus;
+  public faBars = faBars;
   public faMinus = faMinus;
   public users: User[] = [{}];
   public sessions: Session[] = [];
   public jobs: Job[] = Jobs;
   public isJoining = false;
   public sessionId = null;
+  public isCollapsed = false;
 
   constructor(private sessionService: SessionService) {
     this.sessionService.getLocalSession();
