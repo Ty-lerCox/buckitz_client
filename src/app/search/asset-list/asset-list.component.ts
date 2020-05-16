@@ -21,10 +21,11 @@ export class AssetListComponent implements OnInit {
     this.assetListService.getAssets('boat').subscribe((data: any) => {
       this.assets = data.map((e: any) => {
         return {
-          id: e.payload.doc.id,
+          asset_id: e.payload.doc.id,
           ...(e.payload.doc.data() as Asset),
         } as Asset;
       });
+      console.log(this.assets);
     });
   }
 }

@@ -8,7 +8,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { StorageMap } from '@ngx-pwa/local-storage';
 
 // Interfaces & Settings
-import { Asset } from './asset/settings';
+import { Asset, SessionAsset } from './asset/settings';
+import { SessionService } from 'src/app/session/session.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +17,23 @@ import { Asset } from './asset/settings';
 export class AssetListService {
   constructor(
     private firestore: AngularFirestore,
-    private storage: StorageMap
+    private storage: StorageMap,
+    private sessionService: SessionService
   ) {}
 
   getAssets(category: string) {
     return this.firestore
       .collection('asset', (ref) => ref.where('asset_category', '==', category))
       .snapshotChanges();
+  }
+
+  addAssetToSession(asset: Asset) {
+    const sessionAsset: SessionAsset = {
+      session_asset_session_id: this.sessionService.getSessionId(),
+      session_asset_asset_id: asset.asset_id,
+    };
+    this.firestore.collection('sessionAsset').add(sessionAsset);
+    console.log('test');
   }
 
   addAsset() {

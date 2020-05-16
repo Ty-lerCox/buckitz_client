@@ -16,3 +16,9 @@ export interface Asset {
   asset_type: string;
   asset_year: number;
 }
+
+export interface SessionAsset {
+  session_asset_id?: string;
+  session_asset_session_id: string;
+  session_asset_asset_id: string;
+}

@@ -6,6 +6,8 @@ import { Asset } from './settings';
 
 // External Components
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { AssetService } from './asset.service';
+import { AssetListService } from '../asset-list.service';
 
 @Component({
   selector: 'app-asset',
@@ -17,7 +19,11 @@ export class AssetComponent implements OnInit {
 
   @Input() asset: Asset;
 
-  constructor() {}
+  constructor(private assetListService: AssetListService) {}
 
   ngOnInit(): void {}
+
+  add(): void {
+    this.assetListService.addAssetToSession(this.asset);
+  }
 }
