@@ -78,9 +78,9 @@ export class SessionService {
 
   getLocalSession(): void {
     this.storage.get('sessionId').subscribe((value: string) => {
-      this.sessionId = value;
       if (this.isDefined(value)) {
         this.getSession(value);
+        this.sessionId = value;
       }
     });
   }

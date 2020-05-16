@@ -1,5 +1,5 @@
 // Core
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 
 // Firebase
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -7,24 +7,78 @@ import { AngularFirestore } from '@angular/fire/firestore';
 // External Components
 import { StorageMap } from '@ngx-pwa/local-storage';
 
+// Services
+import { SessionService } from 'src/app/session/session.service';
+
 // Interfaces & Settings
 import { Asset, SessionAsset } from './asset/settings';
-import { SessionService } from 'src/app/session/session.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AssetListService {
+  private sessionAssets: SessionAsset[] = [];
+  private assets: Asset[] = [];
+  private category = 'boat';
+
   constructor(
     private firestore: AngularFirestore,
     private storage: StorageMap,
     private sessionService: SessionService
-  ) {}
+  ) {
+    this.getAssets(this.category);
+    this.sessionService.sessionChanged.subscribe((isSession: boolean) => {
+      if (isSession) {
+        this.getSessionAssets();
+      }
+    });
+  }
+
+  @Output() sessionAssetsChanged: EventEmitter<
+    SessionAsset[]
+  > = new EventEmitter();
+  @Output() assetsChanged: EventEmitter<Asset[]> = new EventEmitter();
 
   getAssets(category: string) {
-    return this.firestore
+    this.firestore
       .collection('asset', (ref) => ref.where('asset_category', '==', category))
-      .snapshotChanges();
+      .snapshotChanges()
+      .subscribe((data: any) => {
+        this.assets = data.map((e: any) => {
+          return {
+            asset_id: e.payload.doc.id,
+            ...(e.payload.doc.data() as Asset),
+          } as Asset;
+        });
+        this.assetsChanged.emit(this.assets);
+      });
+  }
+
+  getSessionAssets() {
+    this.firestore
+      .collection('sessionAsset', (ref) =>
+        ref.where(
+          'session_asset_session_id',
+          '==',
+          this.sessionService.getSessionId()
+        )
+      )
+      .snapshotChanges()
+      .subscribe((data: any) => {
+        this.sessionAssets = data.map((e: any) => {
+          return {
+            session_asset_id: e.payload.doc.id,
+            ...(e.payload.doc.data() as SessionAsset),
+          } as SessionAsset;
+        });
+        this.sessionAssetsChanged.emit(this.sessionAssets);
+      });
+  }
+
+  deleteAsset(sessionAsset: SessionAsset) {
+    this.firestore
+      .doc('sessionAsset/' + sessionAsset.session_asset_id)
+      .delete();
   }
 
   addAssetToSession(asset: Asset) {
@@ -33,7 +87,6 @@ export class AssetListService {
       session_asset_asset_id: asset.asset_id,
     };
     this.firestore.collection('sessionAsset').add(sessionAsset);
-    console.log('test');
   }
 
   addAsset() {
