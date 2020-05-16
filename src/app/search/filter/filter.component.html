@@ -10,23 +10,33 @@
       padding-bottom: 15px;
     "
   >
-    <div class="col-xs-10">
-      <app-button-checkbox
-        (valueChanged)="desc1Changed($event)"
-        [options]="desc1"
-      ></app-button-checkbox>
-      <app-button-checkbox
-        (valueChanged)="desc2Changed($event)"
-        [options]="desc2"
-      ></app-button-checkbox>
-      <app-dropdown
-        (valueChanged)="desc3Changed($event)"
-        [options]="desc3"
-      ></app-dropdown>
-      <app-dropdown
-        (valueChanged)="desc4Changed($event)"
-        [options]="desc4"
-      ></app-dropdown>
+    <div class="col-xs-9">
+      <div class="row">
+        <div class="col-xs-12">
+          <app-button-checkbox
+            (valueChanged)="desc1Changed($event)"
+            [options]="desc1"
+          ></app-button-checkbox>
+        </div>
+        <div class="col-xs-12">
+          <app-button-checkbox
+            (valueChanged)="desc2Changed($event)"
+            [options]="desc2"
+          ></app-button-checkbox>
+        </div>
+        <div class="col-xs-12">
+          <app-dropdown
+            (valueChanged)="desc3Changed($event)"
+            [options]="desc3"
+          ></app-dropdown>
+        </div>
+        <div class="col-xs-12">
+          <app-dropdown
+            (valueChanged)="desc4Changed($event)"
+            [options]="desc4"
+          ></app-dropdown>
+        </div>
+      </div>
     </div>
     <div class="col-xs-2" style="margin-left: 15px; margin-right: 15px;">
       <input

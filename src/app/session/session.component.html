@@ -9,7 +9,7 @@
             (click)="isCollapsed = !isCollapsed"
           >
             <fa-icon
-              [icon]="faBars"
+              [icon]="faCaretDown"
               style="color: #ffffff; padding-right: 5px;"
             ></fa-icon>
             Start Session
@@ -22,7 +22,13 @@
             (click)="isCollapsed = !isCollapsed"
           >
             <fa-icon
-              [icon]="faBars"
+              *ngIf="isCollapsed"
+              [icon]="faCaretRight"
+              style="color: #ffffff; padding-right: 5px; text-align: right;"
+            ></fa-icon>
+            <fa-icon
+              *ngIf="!isCollapsed"
+              [icon]="faCaretDown"
               style="color: #ffffff; padding-right: 5px; text-align: right;"
             ></fa-icon>
             Manage Session

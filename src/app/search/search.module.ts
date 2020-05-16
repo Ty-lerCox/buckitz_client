@@ -13,6 +13,7 @@ import { ButtonCheckboxComponent } from './filter/button-checkbox/button-checkbo
 
 // External Components
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DropdownComponent } from './filter/dropdown/dropdown.component';
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    FontAwesomeModule,
     NgbModule,
     RouterModule.forChild(routes),
   ],

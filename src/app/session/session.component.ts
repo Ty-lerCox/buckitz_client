@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Session, User, Job, Jobs } from './settings';
 
 // External Components
-import { faPlus, faMinus, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus, faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 // Services
 import { SessionService } from './session.service';
@@ -18,7 +18,8 @@ import { SessionService } from './session.service';
 export class SessionComponent implements OnInit {
   public session = false;
   public faPlus = faPlus;
-  public faBars = faBars;
+  public faCaretRight = faCaretRight;
+  public faCaretDown = faCaretDown;
   public faMinus = faMinus;
   public users: User[] = [{}];
   public sessions: Session[] = [];
