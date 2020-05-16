@@ -1,6 +1,12 @@
+// Core
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+// Interfaces & Settings
 import { Categories } from '../home/category-list/settings';
+
+// Services
+import { SearchService } from './search.service';
 
 @Component({
   selector: 'app-search',
@@ -10,11 +16,15 @@ import { Categories } from '../home/category-list/settings';
 export class SearchComponent implements OnInit {
   public category: any = Categories.None;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private searchService: SearchService
+  ) {}
 
   ngOnInit(): void {
     const x = this.route.paramMap.subscribe((params) => {
-      this.category = params.get('category');
+      console.log(+params.get('category'));
+      this.searchService.setCategory(+params.get('category'));
     });
   }
 }

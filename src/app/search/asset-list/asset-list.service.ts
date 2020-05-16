@@ -21,6 +21,11 @@ export class AssetListService {
   private assets: Asset[] = [];
   private category = 'boat';
 
+  @Output() sessionAssetsChanged: EventEmitter<
+    SessionAsset[]
+  > = new EventEmitter();
+  @Output() assetsChanged: EventEmitter<Asset[]> = new EventEmitter();
+
   constructor(
     private firestore: AngularFirestore,
     private storage: StorageMap,
@@ -33,11 +38,6 @@ export class AssetListService {
       }
     });
   }
-
-  @Output() sessionAssetsChanged: EventEmitter<
-    SessionAsset[]
-  > = new EventEmitter();
-  @Output() assetsChanged: EventEmitter<Asset[]> = new EventEmitter();
 
   getAssets(category: string) {
     this.firestore

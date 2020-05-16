@@ -4,6 +4,8 @@ export interface Category {
   img: string;
 }
 
+export const CategoriesValues = ['none', 'car', 'boat', 'house', 'children'];
+
 export enum Categories {
   None,
   Cars,
