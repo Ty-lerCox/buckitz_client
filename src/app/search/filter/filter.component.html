@@ -3,13 +3,14 @@
     class="row rounded"
     style="
       background-color: #202b43;
-      height: 64px;
+      min-height: 64px;
       padding-top: 15px;
       padding-right: 2px;
       padding-left: 2px;
+      padding-bottom: 15px;
     "
   >
-    <div class="col-12">
+    <div class="col-xs-10">
       <app-button-checkbox
         (valueChanged)="desc1Changed($event)"
         [options]="desc1"
@@ -18,6 +19,23 @@
         (valueChanged)="desc2Changed($event)"
         [options]="desc2"
       ></app-button-checkbox>
+      <app-dropdown
+        (valueChanged)="desc3Changed($event)"
+        [options]="desc3"
+      ></app-dropdown>
+      <app-dropdown
+        (valueChanged)="desc4Changed($event)"
+        [options]="desc4"
+      ></app-dropdown>
+    </div>
+    <div class="col-xs-2" style="margin-left: 15px; margin-right: 15px;">
+      <input
+        type="text"
+        placeholder="Search Make, Model"
+        class="form-control"
+        autocomplete="off"
+        style="width: 100%;"
+      />
     </div>
   </div>
 </div>

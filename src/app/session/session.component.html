@@ -5,7 +5,7 @@
         <span *ngIf="!session">
           <button
             class="btn"
-            style="line-height: 0.25;"
+            style="line-height: 1; text-align: right;"
             (click)="isCollapsed = !isCollapsed"
           >
             <fa-icon
@@ -18,12 +18,12 @@
         <span *ngIf="session">
           <button
             class="btn"
-            style="line-height: 0.25;"
+            style="line-height: 1; text-align: right;"
             (click)="isCollapsed = !isCollapsed"
           >
             <fa-icon
               [icon]="faBars"
-              style="color: #ffffff; padding-right: 5px;"
+              style="color: #ffffff; padding-right: 5px; text-align: right;"
             ></fa-icon>
             Manage Session
           </button></span

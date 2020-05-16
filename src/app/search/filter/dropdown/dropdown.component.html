@@ -1,14 +1,14 @@
-<div>
-  <div ngbDropdown class="d-inline-block">
+<div ngbDropdown class="d-inline-block" style="margin-left: 15px;">
+  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+    {{ options.title }}
+  </button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
     <button
-      class="btn btn-outline-primary"
-      id="dropdownBasic1"
-      ngbDropdownToggle
+      ngbDropdownItem
+      *ngFor="let choice of options.choices"
+      (click)="valueChanged.emit(choice)"
     >
-      Toggle dropdown
+      {{ choice }}
     </button>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button ngbDropdownItem>Action - 1</button>
-    </div>
   </div>
 </div>

@@ -2,7 +2,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 // Interfaces & Settings
-import { Options } from './settings';
+import { CheckboxOptions } from './settings';
 
 @Component({
   selector: 'app-button-checkbox',
@@ -10,7 +10,7 @@ import { Options } from './settings';
   styleUrls: ['./button-checkbox.component.scss'],
 })
 export class ButtonCheckboxComponent implements OnInit {
-  @Input() options: Options;
+  @Input() options: CheckboxOptions;
   @Output() valueChanged: EventEmitter<string> = new EventEmitter();
 
   value: any;

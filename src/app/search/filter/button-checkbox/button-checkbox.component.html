@@ -1,12 +1,12 @@
 <div
   class="btn-group btn-group-toggle"
-  style="min-width: 10vw; margin-left: 15px; "
+  style="min-width: 10vw; margin-left: 15px;"
 >
   <label
     ngbButtonLabel
     class="btn-primary"
     *ngFor="let choice of options.choices"
-    style="font-size: 13px; border: 1px #202B43 solid;"
+    style="font-size: 13px; border: 1px #202b43 solid;"
   >
     <input type="checkbox" ngbRadioGroup (change)="valueChanged.emit(choice)" />
     {{ choice }}
