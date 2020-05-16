@@ -26,6 +26,7 @@ import { CategoryListComponent } from './home/category-list/category-list.compon
 import { CategoryComponent } from './home/category-list/category/category.component';
 import { BuckitComponent } from './home/buckit-list/buckit/buckit.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ManagerComponent } from './manager/manager.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     CategoryComponent,
     BuckitComponent,
     NavbarComponent,
+    ManagerComponent,
   ],
   imports: [
     BrowserModule,
