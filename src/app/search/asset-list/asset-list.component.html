@@ -1,1 +1,9 @@
-<p></p>
+<div class="row">
+  <div
+    class="col-md-3 col-xs-12"
+    *ngFor="let asset of assets"
+    style="padding: 15px;"
+  >
+    <app-asset [asset]="asset"></app-asset>
+  </div>
+</div>

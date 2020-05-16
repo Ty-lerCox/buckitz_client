@@ -29,7 +29,7 @@
           </button></span
         >
         <span *ngIf="isCollapsed" style="font-size: 12px;">
-          Available: {{ getTotalIncome() | currency }}
+          Available: {{ getTotalIncome() | currency: "USD":"symbol":"1.0" }}
         </span>
       </div>
       <div
@@ -78,7 +78,8 @@
                     user.user_income = job.income
                   "
                 >
-                  {{ job.name }} - {{ job.income | currency: "USD" }}
+                  {{ job.name }} -
+                  {{ job.income | currency: "USD":"symbol":"1.0" }}
                 </button>
                 <button ngbDropdownItem (click)="user.user_job_title = 'Other'">
                   Other
@@ -120,7 +121,7 @@
           Total Available Income:
         </div>
         <div class="col-12">
-          {{ getTotalIncome() | currency }}
+          {{ getTotalIncome() | currency: "USD":"symbol":"1.0" }}
         </div>
       </div>
       <div *ngIf="!session" class="row" style="padding-top: 65px;">
