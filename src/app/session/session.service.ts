@@ -1,5 +1,6 @@
 // Core
 import { Injectable, EventEmitter, Output } from '@angular/core';
+import { Utility } from '../utility';
 
 // Firebase
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -78,9 +79,10 @@ export class SessionService {
 
   getLocalSession(): void {
     this.storage.get('sessionId').subscribe((value: string) => {
-      this.sessionId = value;
-      if (this.isDefined(value)) {
+      if (Utility.isDefined(value)) {
         this.getSession(value);
+        this.sessionId = value;
+        this.sessionChanged.emit(true);
       }
     });
   }
@@ -91,7 +93,7 @@ export class SessionService {
 
   updateUsers(): void {
     this.users.forEach((user: User) => {
-      if (this.isDefined(user.id)) {
+      if (Utility.isDefined(user.id)) {
         this.firestore
           .doc('user/' + user.id)
           .update(user)
@@ -104,10 +106,6 @@ export class SessionService {
 
   deleteUser(user: User) {
     this.firestore.doc('user/' + user.id).delete();
-  }
-
-  isDefined<T>(value: T | undefined | null): value is T {
-    return (value as any) !== undefined && (value as any) !== null;
   }
 
   getSessionId(): string {

@@ -1,0 +1,18 @@
+<div
+  ngbDropdown
+  class="d-inline-block"
+  style="margin-left: 15px; padding-top: 1px;"
+>
+  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+    {{ options.title }}
+  </button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <button
+      ngbDropdownItem
+      *ngFor="let choice of options.choices"
+      (click)="valueChanged.emit(choice)"
+    >
+      {{ choice }}
+    </button>
+  </div>
+</div>

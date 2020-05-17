@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
+@import "~bootstrap/dist/css/bootstrap.css";
 @import "assets/bootstrap.css";
 
 $blue: #182338;
-$green: #198D0C;
-$gray-800: #202B43;
-$gray-600: #4C5F80;
+$green: #198d0c;
+$gray-800: #202b43;
+$gray-600: #4c5f80;
 $input-bg: #182338;
 $white: #ffffff;
 $body-color: $white;

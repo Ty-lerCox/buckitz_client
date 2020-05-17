@@ -1,1 +1,43 @@
-<p>asset works!</p>
+<div class="row card">
+  <div class="col-12">
+    <div class="row card-body">
+      <div class="col-8" (click)="add()">
+        <img
+          src="{{ asset.asset_img_01 }}"
+          class="img-responsive"
+          style="
+            padding: 10px;
+            width: 100%;
+            border-radius: 14px;
+            height: 150px;
+          "
+        />
+      </div>
+      <div
+        class="col-3"
+        style="display: flex; justify-content: center; align-items: center;"
+      >
+        <div class="row" style="line-height: 25px;" (click)="add()">
+          <div class="col-12">
+            {{ asset.asset_cost | currency: "USD":"symbol":"1.0" }}
+          </div>
+          <div class="col-12">Built {{ asset.asset_year }}</div>
+          <div class="col-12">{{ asset.asset_desc_3 }} '</div>
+        </div>
+      </div>
+      <div
+        class="col-1"
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          background-color: #253048;
+          border-radius: 0px 4px 4px 0px;
+        "
+      >
+        <fa-icon [icon]="faPlus" style="color: #21aa11;"></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>
