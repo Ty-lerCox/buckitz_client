@@ -62,7 +62,9 @@ export class ManagerComponent implements OnInit {
     );
     this.searchService.categoryChanged.subscribe((category: string) => {
       if (category !== '' && Utility.isDefined(category)) {
-        this.isSearching = true;
+        setTimeout(() => {
+          this.isSearching = true;
+        });
       }
     });
   }

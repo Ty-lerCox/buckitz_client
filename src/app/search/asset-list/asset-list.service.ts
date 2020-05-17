@@ -35,13 +35,11 @@ export class AssetListService {
     this.sessionService.sessionChanged.subscribe((isSession: boolean) => {
       if (isSession) {
         this.sessionAssets = [];
-        console.log('loading session assets');
         this.getSessionAssets();
       }
     });
     this.searchService.categoryChanged.subscribe((category: string) => {
       this.assets = [];
-      console.log('loading assets');
       this.getAssets(category);
     });
   }
