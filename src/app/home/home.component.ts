@@ -12,13 +12,7 @@ import { SessionService } from '../session/session.service';
 export class HomeComponent implements OnInit {
   session = false;
 
-  constructor(private sessionService: SessionService) {
-    if (this.sessionService.getSessionId() !== null) {
-      this.session = true;
-    } else {
-      this.session = false;
-    }
-  }
+  constructor(private sessionService: SessionService) {}
 
   ngOnInit(): void {
     this.sessionService.sessionChanged.subscribe((session: boolean) => {

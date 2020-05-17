@@ -13,13 +13,17 @@ export class SearchService {
   private activeCategory: Categories = Categories.None;
   private activeCategoryValue = null;
 
-  @Output() categoryChanged: EventEmitter<Categories> = new EventEmitter();
+  @Output() categoryChanged: EventEmitter<string> = new EventEmitter();
 
   constructor() {}
 
   setCategory(category: Categories) {
     this.activeCategory = category;
     this.activeCategoryValue = this.categoryValues[category];
-    this.categoryChanged.emit(this.activeCategory);
+    this.categoryChanged.emit(this.activeCategoryValue);
+  }
+
+  getCategory(): string {
+    return this.activeCategoryValue;
   }
 }

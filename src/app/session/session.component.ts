@@ -5,7 +5,12 @@ import { Component, OnInit } from '@angular/core';
 import { Session, User, Job, Jobs } from './settings';
 
 // External Components
-import { faPlus, faMinus, faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlus,
+  faMinus,
+  faCaretRight,
+  faCaretDown,
+} from '@fortawesome/free-solid-svg-icons';
 
 // Services
 import { SessionService } from './session.service';

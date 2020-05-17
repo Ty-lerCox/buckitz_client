@@ -13,6 +13,7 @@ import { SessionService } from './session/session.service';
 })
 export class AppComponent implements OnInit {
   public session = false;
+  public x = 1;
   public title = 'buckitz';
 
   constructor(private sessionService: SessionService) {}

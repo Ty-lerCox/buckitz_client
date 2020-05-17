@@ -1,5 +1,6 @@
 // Core
 import { Component, OnInit } from '@angular/core';
+import { Utility } from '../utility';
 
 // Interfaces & Settings
 import { Asset, SessionAsset } from '../search/asset-list/asset/settings';
@@ -18,6 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { SessionService } from '../session/session.service';
 import { Session } from 'protractor';
+import { SearchService } from '../search/search.service';
 
 @Component({
   selector: 'app-manager',
@@ -31,10 +33,12 @@ export class ManagerComponent implements OnInit {
   public assets: Asset[] = [];
   public allAssets: Asset[] = [];
   public sessionAssets: SessionAsset[] = [];
+  public isSearching = false;
 
   constructor(
     private managerService: ManagerService,
-    private assetListService: AssetListService
+    private assetListService: AssetListService,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -50,12 +54,17 @@ export class ManagerComponent implements OnInit {
             (asset: Asset) =>
               asset.asset_id === sessionAsset.session_asset_asset_id
           );
-          if (assetFound !== null) {
+          if (Utility.isDefined(assetFound)) {
             this.assets.push(assetFound);
           }
         });
       }
     );
+    this.searchService.categoryChanged.subscribe((category: string) => {
+      if (category !== '' && Utility.isDefined(category)) {
+        this.isSearching = true;
+      }
+    });
   }
 
   remove(asset: Asset): void {

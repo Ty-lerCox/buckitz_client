@@ -22,8 +22,7 @@ export class SearchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const x = this.route.paramMap.subscribe((params) => {
-      console.log(+params.get('category'));
+    this.route.paramMap.subscribe((params) => {
       this.searchService.setCategory(+params.get('category'));
     });
   }

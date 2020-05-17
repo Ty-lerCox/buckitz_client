@@ -9,6 +9,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 
 // Services
 import { SessionService } from 'src/app/session/session.service';
+import { SearchService } from '../search.service';
 
 // Interfaces & Settings
 import { Asset, SessionAsset } from './asset/settings';
@@ -19,7 +20,6 @@ import { Asset, SessionAsset } from './asset/settings';
 export class AssetListService {
   private sessionAssets: SessionAsset[] = [];
   private assets: Asset[] = [];
-  private category = 'boat';
 
   @Output() sessionAssetsChanged: EventEmitter<
     SessionAsset[]
@@ -29,13 +29,20 @@ export class AssetListService {
   constructor(
     private firestore: AngularFirestore,
     private storage: StorageMap,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private searchService: SearchService
   ) {
-    this.getAssets(this.category);
     this.sessionService.sessionChanged.subscribe((isSession: boolean) => {
       if (isSession) {
+        this.sessionAssets = [];
+        console.log('loading session assets');
         this.getSessionAssets();
       }
+    });
+    this.searchService.categoryChanged.subscribe((category: string) => {
+      this.assets = [];
+      console.log('loading assets');
+      this.getAssets(category);
     });
   }
 
@@ -51,6 +58,7 @@ export class AssetListService {
           } as Asset;
         });
         this.assetsChanged.emit(this.assets);
+        this.sessionService.sessionChanged.emit(true);
       });
   }
 
@@ -86,6 +94,7 @@ export class AssetListService {
       session_asset_session_id: this.sessionService.getSessionId(),
       session_asset_asset_id: asset.asset_id,
     };
+    this.sessionAssetsChanged.emit(this.sessionAssets);
     this.firestore.collection('sessionAsset').add(sessionAsset);
   }
 

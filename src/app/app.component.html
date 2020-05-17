@@ -1,6 +1,10 @@
 <app-navbar></app-navbar>
 <div class="row">
-  <div class="col-md-3" [ngClass]="[session ? 'order-md-1' : '']">
+  <div
+    *ngIf="session"
+    class="col-md-3"
+    [ngClass]="[session ? 'order-md-1' : '']"
+  >
     <app-manager></app-manager>
   </div>
   <div class="col-md-3" [ngClass]="[session ? 'order-md-3' : '']">

@@ -1,4 +1,4 @@
-<div class="container" style="font-size: 13px;">
+<div class="container" style="font-size: 13px;" *ngIf="isSearching">
   <div class="manager rounded">
     <div class="row">
       <div class="col-12" style="font-size: 16px;">
@@ -127,6 +127,7 @@
 
       <div
         class="container"
+        *ngIf="assets.length > 0"
         style="
           margin-top: 15px;
           text-align: center;
@@ -167,6 +168,14 @@
           </div>
         </div>
       </div>
+      <!--
+      <div
+        class="col-12"
+        *ngIf="assets.length === 0"
+        style="text-align: center;"
+      >
+        <small>Select a Boat</small>
+      </div>-->
     </div>
   </div>
 </div>
