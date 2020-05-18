@@ -2,8 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 
 // Services
-import { SessionService } from './session/session.service';
-import { SearchService } from './search/search.service';
 
 // External Components
 
@@ -14,23 +12,10 @@ import { SearchService } from './search/search.service';
 })
 export class AppComponent implements OnInit {
   public session = false;
-  public category = 0;
+  public category = '';
   public title = 'buckitz';
 
-  constructor(
-    private sessionService: SessionService,
-    private searchService: SearchService
-  ) {
-    this.searchService.categoryChanged.subscribe((category: number) => {
-      setTimeout(() => {
-        this.category = category;
-      });
-    });
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-    this.sessionService.sessionChanged.subscribe((session: boolean) => {
-      this.session = session;
-    });
-  }
+  ngOnInit(): void {}
 }

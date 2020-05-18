@@ -10,6 +10,7 @@ import { FilterComponent } from './filter/filter.component';
 import { AssetListComponent } from './asset-list/asset-list.component';
 import { AssetComponent } from './asset-list/asset/asset.component';
 import { ButtonCheckboxComponent } from './filter/button-checkbox/button-checkbox.component';
+import { ManagerComponent } from '../manager/manager.component';
 
 // External Components
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -31,6 +32,7 @@ const routes: Routes = [
     AssetComponent,
     ButtonCheckboxComponent,
     DropdownComponent,
+    ManagerComponent,
   ],
   imports: [
     CommonModule,
