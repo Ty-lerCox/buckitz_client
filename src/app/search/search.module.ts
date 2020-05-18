@@ -11,11 +11,11 @@ import { AssetListComponent } from './asset-list/asset-list.component';
 import { AssetComponent } from './asset-list/asset/asset.component';
 import { ButtonCheckboxComponent } from './filter/button-checkbox/button-checkbox.component';
 import { ManagerComponent } from '../manager/manager.component';
+import { DropdownComponent } from './filter/dropdown/dropdown.component';
 
 // External Components
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DropdownComponent } from './filter/dropdown/dropdown.component';
 
 const routes: Routes = [
   {

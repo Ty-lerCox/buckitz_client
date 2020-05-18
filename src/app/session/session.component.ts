@@ -14,6 +14,9 @@ import {
 
 // Services
 import { SessionService } from './session.service';
+import { AssetListService } from '../search/asset-list/asset-list.service';
+import { SessionAsset, Asset } from '../search/asset-list/asset/settings';
+import { Utility } from '../utility';
 
 @Component({
   selector: 'app-session',
@@ -32,8 +35,14 @@ export class SessionComponent implements OnInit {
   public isJoining = false;
   public sessionId = null;
   public isCollapsed = false;
+  public sessionAssets: SessionAsset[] = [];
+  public assets: Asset[] = [];
+  public allAssets: Asset[] = [];
 
-  constructor(private sessionService: SessionService) {
+  constructor(
+    private sessionService: SessionService,
+    private assetListService: AssetListService
+  ) {
     this.sessionService.getLocalSession();
   }
 
@@ -43,6 +52,24 @@ export class SessionComponent implements OnInit {
       this.sessionId = this.sessionService.getSessionId();
       this.users = this.sessionService.getUsers();
     });
+    this.assetListService.assetsChanged.subscribe((assets: Asset[]) => {
+      this.allAssets = assets;
+    });
+    this.assetListService.sessionAssetsChanged.subscribe(
+      (sessionAssets: SessionAsset[]) => {
+        this.sessionAssets = sessionAssets;
+        this.assets = [];
+        sessionAssets.forEach((sessionAsset: SessionAsset) => {
+          const assetFound: Asset = this.allAssets.find(
+            (asset: Asset) =>
+              asset.asset_id === sessionAsset.session_asset_asset_id
+          );
+          if (Utility.isDefined(assetFound)) {
+            this.assets.push(assetFound);
+          }
+        });
+      }
+    );
   }
 
   create(): void {
@@ -97,6 +124,9 @@ export class SessionComponent implements OnInit {
         }
       });
     }
+    this.assets.forEach((asset: Asset) => {
+      result = result - asset.asset_monthly_maintance * 12;
+    });
     return result;
   }
 

@@ -35,7 +35,7 @@
               Cost:
             </div>
             <div class="col-6" style="padding-left: 7px;">
-              {{ asset.asset_cost }}
+              {{ asset.asset_cost | currency: "USD":"symbol":"1.0" }}
             </div>
           </div>
         </div>

@@ -127,7 +127,12 @@
           Total Available Income:
         </div>
         <div class="col-12">
-          {{ getTotalIncome() | currency: "USD":"symbol":"1.0" }}
+          <span *ngIf="0 > getTotalIncome()" style="color: red;"
+            >{{ getTotalIncome() | currency: "USD":"symbol":"1.0" }}</span
+          >
+          <span *ngIf="getTotalIncome() >= 0">{{
+            getTotalIncome() | currency: "USD":"symbol":"1.0"
+          }}</span>
         </div>
       </div>
       <div *ngIf="!session" class="row" style="padding-top: 65px;">
