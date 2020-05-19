@@ -4,15 +4,15 @@
   style="margin-left: 15px; padding-top: 1px;"
 >
   <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-    {{ options.title }}
+    {{ title | titlecase }}
   </button>
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
     <button
       ngbDropdownItem
-      *ngFor="let choice of options.choices"
-      (click)="valueChanged.emit(choice)"
+      *ngFor="let option of options"
+      (click)="valueChanged.emit(option)"
     >
-      {{ choice }}
+      {{ option | titlecase }}
     </button>
   </div>
 </div>

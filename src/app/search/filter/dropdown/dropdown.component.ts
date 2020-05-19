@@ -10,6 +10,7 @@ import { DropdownOptions } from './settings';
   styleUrls: ['./dropdown.component.scss'],
 })
 export class DropdownComponent implements OnInit {
+  @Input() title: string;
   @Input() options: DropdownOptions;
   @Output() valueChanged: EventEmitter<string> = new EventEmitter();
 
