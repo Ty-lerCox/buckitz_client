@@ -1,5 +1,6 @@
 // Core
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 // Interfaces & Settings
 import { Session, User, Job, Jobs } from './settings';
@@ -41,7 +42,8 @@ export class SessionComponent implements OnInit {
 
   constructor(
     private sessionService: SessionService,
-    private assetListService: AssetListService
+    private assetListService: AssetListService,
+    private router: Router
   ) {
     this.sessionService.getLocalSession();
   }
@@ -132,5 +134,6 @@ export class SessionComponent implements OnInit {
 
   exitSession() {
     this.sessionService.clearSession();
+    this.router.navigateByUrl('/');
   }
 }

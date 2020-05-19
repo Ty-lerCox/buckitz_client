@@ -7,14 +7,20 @@ export interface Asset {
   asset_desc_3: string;
   asset_desc_4: string;
   asset_desc_5: string;
-  asset_img_01: string;
-  asset_img_02: string;
+  asset_imgs: string;
   asset_make: string;
   asset_model: string;
   asset_monthly_maintance: number;
   asset_name: string;
   asset_type: string;
   asset_year: number;
+  asset_current_img?: number;
+}
+
+export interface Image {
+  image_id?: string;
+  image_asset_id: string;
+  image_asset_src: string;
 }
 
 export interface SessionAsset {

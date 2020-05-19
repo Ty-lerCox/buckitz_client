@@ -23,152 +23,57 @@
     </div>
     <div class="row" *ngIf="isCollapsed">
       <div *ngFor="let asset of assets">
-        <div class="col-12" style="padding: 15px;">
-          <img
-            src="{{ asset.asset_img_01 }}"
-            style="max-width: 100%; border-radius: 4px;"
-          />
-        </div>
-        <div class="col-12">
-          <div class="row">
-            <div class="col-6" style="text-align: right;">
-              Cost:
-            </div>
-            <div class="col-6" style="padding-left: 7px;">
-              {{ asset.asset_cost | currency: "USD":"symbol":"1.0" }}
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="row">
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"
-              style="text-align: right;"
-            >
-              Year:
-            </div>
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"
-              style="padding-left: 7px;"
-            >
-              {{ asset.asset_year }}
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="row">
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"
-              style="text-align: right;"
-            >
-              Length:
-            </div>
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"
-              style="padding-left: 7px;"
-            >
-              {{ asset.asset_desc_3 }} '
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="row">
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"
-              style="text-align: right;"
-            >
-              Engine:
-            </div>
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"
-              style="padding-left: 7px;"
-            >
-              {{ asset.asset_desc_5 }}
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="row" style="display: flex;">
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"
-              style="text-align: right;"
-            >
-              Monthly Maintance Cost:
-            </div>
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"
-              style="
-                padding-left: 7px;
-                display: inline-block;
-                align-self: flex-end;
-              "
-            >
-              {{
-                asset.asset_monthly_maintance | currency: "USD":"symbol":"1.0"
-              }}
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-10 col-xs-12"></div>
-          <div class="col-md-2 col-xs-12" style="text-align: right;">
-            <button
-              class="btn btn-default"
-              style="padding-top: 0px; padding-bottom: 0px;"
-              (click)="remove(asset)"
-            >
-              <span style="color: #f44348; font-size: 8px; line-height: 1px;">
-                Remove
-              </span>
-            </button>
-          </div>
-        </div>
+        <app-manager-asset
+          [asset]="asset"
+          [images]="getAssetImages(asset)"
+          (remove)="remove(asset)"
+        ></app-manager-asset>
       </div>
-
-      <div
-        class="container"
-        *ngIf="assets.length > 0"
-        style="
-          margin-top: 15px;
-          text-align: center;
-          background-color: #182338;
-          border-radius: 5px;
-          text-align: center;
-          padding-top: 15px;
-          padding-bottom: 15px;
-          line-height: 25px;
-        "
-      >
-        <div class="row">
-          <div class="col-12">
-            <div class="row">
-              <div class="col-12">
-                Monthly Financing Cost
+      <div>
+        <div
+          class="container"
+          *ngIf="assets.length > 0"
+          style="
+            margin-top: 15px;
+            text-align: center;
+            background-color: #182338;
+            border-radius: 5px;
+            text-align: center;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            line-height: 25px;
+          "
+        >
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12">
+                  Monthly Financing Cost
+                </div>
+                <div class="col-12">
+                  $0 - $160,000
+                </div>
               </div>
-              <div class="col-12">
-                $0 - $160,000
+              <div class="row">
+                <div class="col-12">
+                  Suggested Yearly Salary
+                </div>
+                <div class="col-12">
+                  $16,000,000
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                Suggested Yearly Salary
-              </div>
-              <div class="col-12">
-                $16,000,000
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                New Available Yearly Income
-              </div>
-              <div class="col-12">
-                $4,000,000
+              <div class="row">
+                <div class="col-12">
+                  New Available Yearly Income
+                </div>
+                <div class="col-12">
+                  $4,000,000
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!--
+        <!--
       <div
         class="col-12"
         *ngIf="assets.length === 0"
@@ -176,6 +81,7 @@
       >
         <small>Select a Boat</small>
       </div>-->
+      </div>
     </div>
   </div>
 </div>

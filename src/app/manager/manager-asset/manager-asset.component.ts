@@ -1,39 +1,34 @@
 // Core
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 // Interfaces & Settings
-import { Asset, Image } from './settings';
+import { Asset, Image } from 'src/app/search/asset-list/asset/settings';
 
 // External Components
 import {
   faPlus,
   faCaretRight,
+  faThumbsDown,
 } from '@fortawesome/free-solid-svg-icons';
-import { AssetService } from './asset.service';
-import { AssetListService } from '../asset-list.service';
 
 @Component({
-  selector: 'app-asset',
-  templateUrl: './asset.component.html',
-  styleUrls: ['./asset.component.scss'],
+  selector: 'app-manager-asset',
+  templateUrl: './manager-asset.component.html',
+  styleUrls: ['./manager-asset.component.scss'],
 })
-export class AssetComponent implements OnInit {
-  public faPlus = faPlus;
+export class ManagerAssetComponent implements OnInit {
   public faCaretRight = faCaretRight;
   public currentImg = 0;
   public currentImgSrc = '';
 
   @Input() asset: Asset;
   @Input() images: Image[];
+  @Output() remove: EventEmitter<Asset> = new EventEmitter();
 
-  constructor(private assetListService: AssetListService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.currentImgSrc = this.images[0].image_asset_src;
-  }
-
-  add(): void {
-    this.assetListService.addAssetToSession(this.asset);
   }
 
   nextImage(): void {

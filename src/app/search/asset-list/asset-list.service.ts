@@ -12,7 +12,7 @@ import { SessionService } from 'src/app/session/session.service';
 import { SearchService } from '../search.service';
 
 // Interfaces & Settings
-import { Asset, SessionAsset } from './asset/settings';
+import { Asset, SessionAsset, Image } from './asset/settings';
 
 @Injectable({
   providedIn: 'root',
@@ -20,10 +20,12 @@ import { Asset, SessionAsset } from './asset/settings';
 export class AssetListService {
   private sessionAssets: SessionAsset[] = [];
   private assets: Asset[] = [];
+  private assetImages: Image[] = [];
 
   @Output() sessionAssetsChanged: EventEmitter<
     SessionAsset[]
   > = new EventEmitter();
+  @Output() assetImagesChanged: EventEmitter<Image[]> = new EventEmitter();
   @Output() assetsChanged: EventEmitter<Asset[]> = new EventEmitter();
 
   constructor(
@@ -55,7 +57,22 @@ export class AssetListService {
             ...(e.payload.doc.data() as Asset),
           } as Asset;
         });
-        this.assetsChanged.emit(this.assets);
+        const assetIds = this.assets.map((asset: Asset) => asset.asset_id);
+        this.firestore
+          .collection('image', (ref) =>
+            ref.where('image_asset_id', 'in', assetIds)
+          )
+          .snapshotChanges()
+          .subscribe((imageData: any) => {
+            this.assetImages = imageData.map((e: any) => {
+              return {
+                image_asset_id: e.payload.doc.id,
+                ...(e.payload.doc.data() as Image),
+              } as Image;
+            });
+            this.assetsChanged.emit(this.assets);
+            this.assetImagesChanged.emit(this.assetImages);
+          });
         this.sessionService.sessionChanged.emit(true);
       });
   }
@@ -105,10 +122,7 @@ export class AssetListService {
       asset_desc_3: '157',
       asset_desc_4: 'Newport, RI',
       asset_desc_5: 'Diesel',
-      asset_img_01:
-        'https://images.boattrader.com/resize/1/82/88/6818288_20180823153122449_1_LARGE.jpg?w=1600&h=800&t=1535145392000',
-      asset_img_02:
-        'https://images.boattrader.com/resize/1/82/88/6818288_20180823120223156_1_LARGE.jpg?w=1600&h=800&t=1535144874000',
+      asset_imgs: '||',
       asset_make: 'Palmer Johnson',
       asset_model: 'Tri-Masted Staysail',
       asset_monthly_maintance: 0,

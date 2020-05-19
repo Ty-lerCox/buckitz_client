@@ -1,9 +1,9 @@
 <div class="row card">
   <div class="col-12">
     <div class="row card-body">
-      <div class="col-8" (click)="add()">
+      <div class="col-8 img-wrapper">
         <img
-          src="{{ asset.asset_img_01 }}"
+          src="{{ currentImgSrc }}"
           class="img-responsive"
           style="
             padding: 10px;
@@ -12,12 +12,26 @@
             height: 150px;
           "
         />
+        <div class="img-overlay">
+          <button
+            (click)="nextImage()"
+            class="btn btn-lg btn-default"
+            style="
+              width: 35px;
+              height: 130px;
+              background-color: #00000067;
+              border-radius: 0px 4px 4px 0px;
+            "
+          >
+            <fa-icon [icon]="faCaretRight" style="color: #ffffff75;"></fa-icon>
+          </button>
+        </div>
       </div>
       <div
         class="col-3"
         style="display: flex; justify-content: center; align-items: center;"
       >
-        <div class="row" style="line-height: 25px;" (click)="add()">
+        <div class="row" style="line-height: 25px;">
           <div class="col-12">
             {{ asset.asset_cost | currency: "USD":"symbol":"1.0" }}
           </div>
@@ -26,7 +40,7 @@
         </div>
       </div>
       <div
-        class="col-1"
+        class="col-1 add"
         style="
           display: flex;
           justify-content: center;
@@ -35,6 +49,7 @@
           background-color: #253048;
           border-radius: 0px 4px 4px 0px;
         "
+        (click)="add()"
       >
         <fa-icon [icon]="faPlus" style="color: #21aa11;"></fa-icon>
       </div>

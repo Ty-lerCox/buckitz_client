@@ -31,14 +31,17 @@
           Home
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">
+          <a class="dropdown-item" [routerLink]="['/search/', Categories.Cars]">
             <fa-icon
               [icon]="faTruckPickup"
               style="padding-right: 15px; color: #f44348;"
             ></fa-icon>
             Cars
           </a>
-          <a class="dropdown-item" href="#">
+          <a
+            class="dropdown-item"
+            [routerLink]="['/search/', Categories.Boats]"
+          >
             <fa-icon
               [icon]="faShip"
               style="padding-right: 15px; color: #f44348;"

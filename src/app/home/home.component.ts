@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Services
 import { SessionService } from '../session/session.service';
+import { Utility } from '../utility';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,11 @@ import { SessionService } from '../session/session.service';
 export class HomeComponent implements OnInit {
   session = false;
 
-  constructor(private sessionService: SessionService) {}
+  constructor(private sessionService: SessionService) {
+    if (Utility.isDefined(this.sessionService.getSessionId())) {
+      this.session = true;
+    }
+  }
 
   ngOnInit(): void {
     this.sessionService.sessionChanged.subscribe((session: boolean) => {
