@@ -114,22 +114,8 @@ export class AssetListService {
   }
 
   addAsset() {
-    const asset: Asset = {
-      asset_category: 'boat',
-      asset_cost: 4500000,
-      asset_desc_1: 'used',
-      asset_desc_2: 'sail',
-      asset_desc_3: '157',
-      asset_desc_4: 'Newport, RI',
-      asset_desc_5: 'Diesel',
-      asset_imgs: '||',
-      asset_make: 'Palmer Johnson',
-      asset_model: 'Tri-Masted Staysail',
-      asset_monthly_maintance: 0,
-      asset_name: '1983 Palmer Johnson',
-      asset_type: 'sail',
-      asset_year: 1983,
-    };
-    this.firestore.collection('asset').add(asset);
+    //const asset: Asset = {
+    //};
+    //this.firestore.collection('asset').add(asset);
   }
 }
