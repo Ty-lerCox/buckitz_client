@@ -13,6 +13,7 @@ import { ButtonCheckboxComponent } from './filter/button-checkbox/button-checkbo
 import { ManagerComponent } from '../manager/manager.component';
 import { DropdownComponent } from './filter/dropdown/dropdown.component';
 import { ManagerAssetComponent } from '../manager/manager-asset/manager-asset.component';
+import { ImageModalComponent } from '../manager/image-modal/image-modal.component';
 
 // External Components
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -35,6 +36,7 @@ const routes: Routes = [
     DropdownComponent,
     ManagerComponent,
     ManagerAssetComponent,
+    ImageModalComponent,
   ],
   imports: [
     CommonModule,
