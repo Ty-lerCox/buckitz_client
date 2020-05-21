@@ -18,6 +18,9 @@ import { ImageModalComponent } from '../manager/image-modal/image-modal.componen
 // External Components
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import 'hammerjs';
+import 'mousetrap';
+import { GalleryModule } from '@ks89/angular-modal-gallery';
 
 const routes: Routes = [
   {
@@ -43,6 +46,7 @@ const routes: Routes = [
     FormsModule,
     FontAwesomeModule,
     NgbModule,
+    GalleryModule.forRoot(),
     RouterModule.forChild(routes),
   ],
 })

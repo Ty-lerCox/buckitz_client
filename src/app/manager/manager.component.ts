@@ -41,6 +41,7 @@ export class ManagerComponent implements OnInit {
   public isSearching = false;
   public currentImg = 0;
   public currentImgSrc = '';
+  public modalState = false;
 
   constructor(
     private managerService: ManagerService,
@@ -49,6 +50,9 @@ export class ManagerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.managerService.modalStateChanged.subscribe((state: boolean) => {
+      this.modalState = state;
+    });
     this.assetListService.assetsChanged.subscribe((assets: Asset[]) => {
       this.allAssets = assets;
     });

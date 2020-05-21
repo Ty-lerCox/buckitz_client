@@ -10,6 +10,7 @@ import {
   faCaretRight,
   faThumbsDown,
 } from '@fortawesome/free-solid-svg-icons';
+import { ManagerService } from '../manager.service';
 
 @Component({
   selector: 'app-manager-asset',
@@ -20,12 +21,13 @@ export class ManagerAssetComponent implements OnInit {
   public faCaretRight = faCaretRight;
   public currentImg = 0;
   public currentImgSrc = '';
+  public modalState = false;
 
   @Input() asset: Asset;
   @Input() images: Image[];
   @Output() remove: EventEmitter<Asset> = new EventEmitter();
 
-  constructor() {}
+  constructor(private managerService: ManagerService) {}
 
   ngOnInit(): void {
     this.currentImgSrc = this.images[0].image_asset_src;
@@ -38,5 +40,14 @@ export class ManagerAssetComponent implements OnInit {
       this.currentImg = this.currentImg + 1;
     }
     this.currentImgSrc = this.images[this.currentImg].image_asset_src;
+  }
+
+  openImageModal() {
+    this.managerService.modalStateChanged.emit(true);
+  }
+
+  setModalState(state: boolean) {
+    this.modalState = state;
+    this.managerService.modalStateChanged.emit(state);
   }
 }
