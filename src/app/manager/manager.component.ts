@@ -22,7 +22,7 @@ import {
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { SearchService } from '../search/search.service';
-import { Categories } from '../home/category-list/settings';
+import { Categories, CategoriesValues } from '../home/category-list/settings';
 
 @Component({
   selector: 'app-manager',
@@ -37,6 +37,9 @@ export class ManagerComponent implements OnInit {
   public assetImages: Image[] = [];
   public allAssets: Asset[] = [];
   public sessionAssets: SessionAsset[] = [];
+  public category: Categories;
+  public categoryValue: string;
+  public categoryValues: string[] = CategoriesValues;
   public isSearching = false;
   public currentImg = 0;
   public currentImgSrc = '';
@@ -49,6 +52,7 @@ export class ManagerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.category = this.searchService.getCategory();
     this.managerService.modalStateChanged.subscribe((state: boolean) => {
       this.modalState = state;
     });
@@ -73,7 +77,12 @@ export class ManagerComponent implements OnInit {
         });
       }
     );
+    this.searchService.categoryValueChanged.subscribe((category: string) => {
+      this.categoryValue = category;
+    });
     this.searchService.categoryChanged.subscribe((category: Categories) => {
+      this.category = category;
+      console.log(this.category);
       if (Utility.isDefined(category)) {
         setTimeout(() => {
           this.isSearching = true;

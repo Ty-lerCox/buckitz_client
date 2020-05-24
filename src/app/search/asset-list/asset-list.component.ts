@@ -11,7 +11,6 @@ import {
   Categories,
   CategoriesValues,
 } from 'src/app/home/category-list/settings';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-asset-list',
@@ -26,7 +25,6 @@ export class AssetListComponent implements OnInit {
   public categoryValues: string[] = CategoriesValues;
 
   constructor(
-    private route: ActivatedRoute,
     private assetListService: AssetListService,
     private searchService: SearchService
   ) {}
@@ -40,9 +38,10 @@ export class AssetListComponent implements OnInit {
       this.assetImages = images;
     });
     this.searchService.categoryChanged.subscribe((category: Categories) => {
-      console.log(category);
       this.category = category;
-      this.categoryValue = this.categoryValues[category];
+    });
+    this.searchService.categoryValueChanged.subscribe((category: string) => {
+      this.categoryValue = category;
     });
   }
 
@@ -54,13 +53,5 @@ export class AssetListComponent implements OnInit {
       }
     });
     return result;
-  }
-
-  getCategory(): Categories {
-    return this.category;
-  }
-
-  getCategoryValue(): string {
-    return this.categoryValue;
   }
 }

@@ -37,12 +37,12 @@ export class AssetListService {
     });
     this.searchService.categoryValueChanged.subscribe((category: string) => {
       this.assets = [];
-      this.getAssets(category);
+      this.getAssetsByCategory(category);
     });
     //this.addAsset();
   }
 
-  getAssets(category: string) {
+  getAssetsByCategory(category: string) {
     this.firestore
       .collection('asset', (ref) => ref.where('asset_category', '==', category))
       .snapshotChanges()

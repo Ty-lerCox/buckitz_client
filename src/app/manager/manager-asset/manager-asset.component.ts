@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 // Interfaces & Settings
 import { Asset, Image } from 'src/app/search/asset-list/asset/settings';
+import { Categories } from 'src/app/home/category-list/settings';
 
 // External Components
 import {
@@ -10,6 +11,8 @@ import {
   faCaretRight,
   faThumbsDown,
 } from '@fortawesome/free-solid-svg-icons';
+
+// Services
 import { ManagerService } from '../manager.service';
 
 @Component({
@@ -22,9 +25,11 @@ export class ManagerAssetComponent implements OnInit {
   public currentImg = 0;
   public currentImgSrc = '';
   public modalState = false;
+  public categories = Categories;
 
   @Input() asset: Asset;
   @Input() images: Image[];
+  @Input() category: Categories;
   @Output() remove: EventEmitter<Asset> = new EventEmitter();
 
   constructor(private managerService: ManagerService) {}
