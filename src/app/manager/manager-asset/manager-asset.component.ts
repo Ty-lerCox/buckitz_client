@@ -35,7 +35,9 @@ export class ManagerAssetComponent implements OnInit {
   constructor(private managerService: ManagerService) {}
 
   ngOnInit(): void {
-    this.currentImgSrc = this.images[0].image_asset_src;
+    this.currentImgSrc = this.images.find(
+      (img: Image) => img.image_index === 0
+    ).image_asset_src;
   }
 
   nextImage(): void {

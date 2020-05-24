@@ -47,10 +47,12 @@ export interface Asset {
   asset_slider_5_value?: number;
   asset_slider_6_title?: string;
   asset_slider_6_value?: number;
+  asset_source?: string;
 }
 
 export interface Image {
   image_id?: string;
+  image_index?: number;
   image_asset_id: string;
   image_asset_src: string;
 }
@@ -59,4 +61,6 @@ export interface SessionAsset {
   session_asset_id?: string;
   session_asset_session_id: string;
   session_asset_asset_id: string;
+  session_asset_category: string;
+  session_asset_monthly_cost: number;
 }

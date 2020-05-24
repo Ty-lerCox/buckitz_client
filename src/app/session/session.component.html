@@ -127,12 +127,76 @@
           Total Available Income:
         </div>
         <div class="col-12">
-          <span *ngIf="0 > getTotalIncome()" style="color: red;"
-            >{{ getTotalIncome() | currency: "USD":"symbol":"1.0" }}</span
-          >
+          <span *ngIf="0 > getTotalIncome()" style="color: red;">{{
+            getTotalIncome() | currency: "USD":"symbol":"1.0"
+          }}</span>
           <span *ngIf="getTotalIncome() >= 0">{{
             getTotalIncome() | currency: "USD":"symbol":"1.0"
           }}</span>
+        </div>
+        <div class="col-12" style="padding-top: 10px;">
+          <div
+            class="row"
+            style="text-align: center; background-color: #131c2e;"
+          >
+            <div class="col-4">
+              Cars
+            </div>
+            <div class="col-4">
+              {{ getAssetsCountByCategory(categories.Cars) }}
+            </div>
+            <div class="col-4">
+              {{
+                getAssetsCostByCategory(categories.Cars)
+                  | currency: "USD":"symbol":"1.0"
+              }}
+            </div>
+          </div>
+          <div class="row" style="text-align: center;">
+            <div class="col-4">
+              Boats
+            </div>
+            <div class="col-4">
+              {{ getAssetsCountByCategory(categories.Boats) }}
+            </div>
+            <div class="col-4">
+              {{
+                getAssetsCostByCategory(categories.Boats)
+                  | currency: "USD":"symbol":"1.0"
+              }}
+            </div>
+          </div>
+          <div
+            class="row"
+            style="text-align: center; background-color: #131c2e;"
+          >
+            <div class="col-4">
+              Houses
+            </div>
+            <div class="col-4">
+              {{ getAssetsCountByCategory(categories.House) }}
+            </div>
+            <div class="col-4">
+              {{
+                getAssetsCostByCategory(categories.House)
+                  | currency: "USD":"symbol":"1.0"
+              }}
+            </div>
+          </div>
+          <div class="row" style="text-align: center;">
+            <div class="col-4">
+              Children
+            </div>
+            <div class="col-4">
+              {{ getAssetsCountByCategory(categories.Children) }}
+            </div>
+            <div class="col-4">
+              {{
+                getAssetsCostByCategory(categories.Children)
+                  | currency: "USD":"symbol":"1.0"
+              }}
+            </div>
+          </div>
         </div>
       </div>
       <div *ngIf="!session" class="row" style="padding-top: 65px;">

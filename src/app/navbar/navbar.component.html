@@ -28,10 +28,10 @@
             [icon]="faHome"
             style="padding-right: 15px; color: #f44348;"
           ></fa-icon>
-          Home
+          {{ getCurrentPage() | titlecase }}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/search/', Categories.Cars]">
+          <a class="dropdown-item" [routerLink]="['/search/', categories.Cars]">
             <fa-icon
               [icon]="faTruckPickup"
               style="padding-right: 15px; color: #f44348;"
@@ -40,7 +40,7 @@
           </a>
           <a
             class="dropdown-item"
-            [routerLink]="['/search/', Categories.Boats]"
+            [routerLink]="['/search/', categories.Boats]"
           >
             <fa-icon
               [icon]="faShip"

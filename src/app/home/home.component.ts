@@ -13,13 +13,16 @@ import { Utility } from '../utility';
 export class HomeComponent implements OnInit {
   session = false;
 
-  constructor(private sessionService: SessionService) {
-    if (Utility.isDefined(this.sessionService.getSessionId())) {
-      this.session = true;
-    }
-  }
+  constructor(private sessionService: SessionService) {}
 
   ngOnInit(): void {
+    if (
+      Utility.isDefined(this.sessionService.getSessionId()) &&
+      this.sessionService.getSessionId() !== ''
+    ) {
+      this.session = true;
+    }
+
     this.sessionService.sessionChanged.subscribe((session: boolean) => {
       this.session = session;
     });

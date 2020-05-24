@@ -18,6 +18,11 @@ import { SessionService } from './session.service';
 import { AssetListService } from '../search/asset-list/asset-list.service';
 import { SessionAsset, Asset } from '../search/asset-list/asset/settings';
 import { Utility } from '../utility';
+import {
+  Categories,
+  CategoriesValues,
+  Category,
+} from '../home/category-list/settings';
 
 @Component({
   selector: 'app-session',
@@ -39,6 +44,9 @@ export class SessionComponent implements OnInit {
   public sessionAssets: SessionAsset[] = [];
   public assets: Asset[] = [];
   public allAssets: Asset[] = [];
+  public cars: Asset[] = [];
+  public boats: Asset[] = [];
+  public categories = Categories;
 
   constructor(
     private sessionService: SessionService,
@@ -118,16 +126,47 @@ export class SessionComponent implements OnInit {
   }
 
   getTotalIncome(): number {
+    let totalIncome = 0;
     let result = 0;
+    let userCount = 0;
     if (this.users) {
       this.users.forEach((user: User) => {
         if (user.user_income > 0) {
           result += user.user_income;
+          totalIncome += user.user_income;
+          userCount = userCount + 1;
         }
       });
     }
-    this.assets.forEach((asset: Asset) => {
-      result = result - asset.asset_monthly_maintance * 12;
+
+    result = result - totalIncome * 0.24; // Mid-tier tax bracket
+    result = result - totalIncome * 0.08; // Health Care Costs
+    result = result - totalIncome * 0.05; // Entertainment Costs
+    result = result - totalIncome * 0.03; // Apparel and Services Costs
+    result = result - userCount * 250 * 12; // Food Costs
+
+    this.sessionAssets.forEach((sessionAsset: SessionAsset) => {
+      result = result - sessionAsset.session_asset_monthly_cost * 12;
+    });
+    return result;
+  }
+
+  getAssetsCountByCategory(category: Categories): number {
+    let result = 0;
+    this.sessionAssets.forEach((sessionAsset: SessionAsset) => {
+      if (sessionAsset.session_asset_category === CategoriesValues[category]) {
+        result = result + 1;
+      }
+    });
+    return result;
+  }
+
+  getAssetsCostByCategory(category: Categories): number {
+    let result = 0;
+    this.sessionAssets.forEach((sessionAsset: SessionAsset) => {
+      if (sessionAsset.session_asset_category === CategoriesValues[category]) {
+        result = result + sessionAsset.session_asset_monthly_cost * 12;
+      }
     });
     return result;
   }

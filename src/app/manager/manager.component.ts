@@ -53,6 +53,7 @@ export class ManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this.category = this.searchService.getCategory();
+    this.categoryValue = this.searchService.getCategoryValue();
     this.managerService.modalStateChanged.subscribe((state: boolean) => {
       this.modalState = state;
     });

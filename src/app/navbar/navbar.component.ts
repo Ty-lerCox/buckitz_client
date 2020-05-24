@@ -10,6 +10,7 @@ import {
   faHome,
   faTruckPickup,
 } from '@fortawesome/free-solid-svg-icons';
+import { SearchService } from '../search/search.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,9 +21,26 @@ export class NavbarComponent implements OnInit {
   public faShip = faShip;
   public faHome = faHome;
   public faTruckPickup = faTruckPickup;
-  public Categories = Categories;
+  public categories = Categories;
+  public category = Categories.None;
+  public categoryValue = 'Home';
 
-  constructor() {}
+  constructor(private searchService: SearchService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.searchService.categoryChanged.subscribe((category: Categories) => {
+      this.category = category;
+    });
+    this.searchService.categoryValueChanged.subscribe((category: string) => {
+      this.categoryValue = category;
+    });
+  }
+
+  getCurrentPage(): string {
+    if (this.category === Categories.None) {
+      return 'Home';
+    } else {
+      return this.categoryValue + 's';
+    }
+  }
 }

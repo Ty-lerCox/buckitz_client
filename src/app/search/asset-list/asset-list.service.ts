@@ -18,6 +18,7 @@ export class AssetListService {
   private sessionAssets: SessionAsset[] = [];
   private assets: Asset[] = [];
   private assetImages: Image[] = [];
+  private categoryValue = '';
 
   @Output() sessionAssetsChanged: EventEmitter<
     SessionAsset[]
@@ -37,9 +38,11 @@ export class AssetListService {
     });
     this.searchService.categoryValueChanged.subscribe((category: string) => {
       this.assets = [];
+      this.categoryValue = category;
       this.getAssetsByCategory(category);
     });
-    //this.addAsset();
+    // this.addAssetBoat();
+    // this.addImage();
   }
 
   getAssetsByCategory(category: string) {
@@ -104,23 +107,24 @@ export class AssetListService {
     const sessionAsset: SessionAsset = {
       session_asset_session_id: this.sessionService.getSessionId(),
       session_asset_asset_id: asset.asset_id,
+      session_asset_category: this.categoryValue,
+      session_asset_monthly_cost: asset.asset_monthly_maintance,
     };
-    //this.sessionAssetsChanged.emit(this.sessionAssets);
     this.firestore.collection('sessionAsset').add(sessionAsset);
   }
 
-  addAsset() {
+  addAssetCar() {
     const asset: Asset = {
       asset_category: 'car',
       asset_cmb_1_title: 'Make',
-      asset_cmb_1_value: 'Ford',
+      asset_cmb_1_value: 'Tesla',
       asset_cmb_2_title: 'Model',
-      asset_cmb_2_value: 'F-150',
+      asset_cmb_2_value: 'Model 3',
       asset_cmb_3_title: 'Body Type',
-      asset_cmb_3_value: 'Truck',
-      asset_cost: 40000,
-      asset_monthly_maintance: 1500,
-      asset_name: 'Ford F-150',
+      asset_cmb_3_value: 'Sedan',
+      asset_cost: 45000,
+      asset_monthly_maintance: 800,
+      asset_name: 'Tesla Model 3',
       asset_radio_1_title: '',
       asset_radio_1_value: '',
       asset_radio_1_valueList: '',
@@ -133,5 +137,42 @@ export class AssetListService {
       asset_slider_2_value: 0,
     };
     this.firestore.collection('asset').add(asset);
+  }
+
+  addAssetBoat() {
+    const asset: Asset = {
+      asset_category: 'boat',
+      asset_cmb_1_title: 'location',
+      asset_cmb_1_value: 'Onalaska, TX',
+      asset_cmb_2_title: 'Make',
+      asset_cmb_2_value: 'Tracker',
+      asset_cmb_3_title: 'Model',
+      asset_cmb_3_value: 'Pro Team 195 TXW',
+      asset_cost: 30000,
+      asset_monthly_maintance: 400,
+      asset_name: '2020 Pro Team 195 TXW',
+      asset_radio_1_title: 'condition',
+      asset_radio_1_value: 'new',
+      asset_radio_1_valueList: 'all,new,used',
+      asset_radio_2_title: 'type',
+      asset_radio_2_value: 'power',
+      asset_radio_2_valueList: 'all,sail,power',
+      asset_slider_1_title: 'length',
+      asset_slider_1_value: 19,
+      asset_slider_2_title: 'year',
+      asset_slider_2_value: 2020,
+      asset_source:
+        'https://www.boats.com/power-boats/2020-tracker-pro-team-195-txw-tournament-edition-7375068/',
+    };
+    this.firestore.collection('asset').add(asset);
+  }
+
+  addImage() {
+    const image: Image = {
+      image_asset_id: 'pHtRSVM8DhL8SaKtuYm2',
+      image_asset_src:
+        'https://images.boats.com/resize/1/35/15/7223515_20190919100224775_1_XLARGE.jpg?t=1582381124000',
+    };
+    this.firestore.collection('image').add(image);
   }
 }
