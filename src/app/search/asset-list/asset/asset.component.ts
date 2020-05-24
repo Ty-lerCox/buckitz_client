@@ -3,14 +3,13 @@ import { Component, OnInit, Input } from '@angular/core';
 
 // Interfaces & Settings
 import { Asset, Image } from './settings';
+import { Categories } from '../../../home/category-list/settings';
 
 // External Components
-import {
-  faPlus,
-  faCaretRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { AssetService } from './asset.service';
 import { AssetListService } from '../asset-list.service';
+import { SearchService } from '../../search.service';
 
 @Component({
   selector: 'app-asset',
@@ -22,9 +21,11 @@ export class AssetComponent implements OnInit {
   public faCaretRight = faCaretRight;
   public currentImg = 0;
   public currentImgSrc = '';
+  public categories = Categories;
 
   @Input() asset: Asset;
   @Input() images: Image[];
+  @Input() category: Categories;
 
   constructor(private assetListService: AssetListService) {}
 

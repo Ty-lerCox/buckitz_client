@@ -4,9 +4,6 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 // Firebase
 import { AngularFirestore } from '@angular/fire/firestore';
 
-// External Components
-import { StorageMap } from '@ngx-pwa/local-storage';
-
 // Services
 import { SessionService } from 'src/app/session/session.service';
 import { SearchService } from '../search.service';
@@ -30,20 +27,19 @@ export class AssetListService {
 
   constructor(
     private firestore: AngularFirestore,
-    private storage: StorageMap,
     private sessionService: SessionService,
     private searchService: SearchService
   ) {
     this.sessionService.sessionChanged.subscribe((isSession: boolean) => {
       if (isSession) {
         this.sessionAssets = [];
-        this.getSessionAssets();
       }
     });
     this.searchService.categoryChanged.subscribe((category: string) => {
       this.assets = [];
       this.getAssets(category);
     });
+    //this.addAsset();
   }
 
   getAssets(category: string) {
@@ -72,8 +68,8 @@ export class AssetListService {
             });
             this.assetsChanged.emit(this.assets);
             this.assetImagesChanged.emit(this.assetImages);
+            this.getSessionAssets();
           });
-        this.sessionService.sessionChanged.emit(true);
       });
   }
 
@@ -109,13 +105,33 @@ export class AssetListService {
       session_asset_session_id: this.sessionService.getSessionId(),
       session_asset_asset_id: asset.asset_id,
     };
-    this.sessionAssetsChanged.emit(this.sessionAssets);
+    //this.sessionAssetsChanged.emit(this.sessionAssets);
     this.firestore.collection('sessionAsset').add(sessionAsset);
   }
 
   addAsset() {
-    //const asset: Asset = {
-    //};
-    //this.firestore.collection('asset').add(asset);
+    const asset: Asset = {
+      asset_category: 'car',
+      asset_cmb_1_title: 'Make',
+      asset_cmb_1_value: 'Ford',
+      asset_cmb_2_title: 'Model',
+      asset_cmb_2_value: 'F-150',
+      asset_cmb_3_title: 'Body Type',
+      asset_cmb_3_value: 'Truck',
+      asset_cost: 40000,
+      asset_monthly_maintance: 1500,
+      asset_name: 'Ford F-150',
+      asset_radio_1_title: '',
+      asset_radio_1_value: '',
+      asset_radio_1_valueList: '',
+      asset_radio_2_title: '',
+      asset_radio_2_value: '',
+      asset_radio_2_valueList: '',
+      asset_slider_1_title: '',
+      asset_slider_1_value: 0,
+      asset_slider_2_title: '',
+      asset_slider_2_value: 0,
+    };
+    this.firestore.collection('asset').add(asset);
   }
 }

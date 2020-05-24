@@ -24,6 +24,7 @@ import {
 import { SessionService } from '../session/session.service';
 import { Session } from 'protractor';
 import { SearchService } from '../search/search.service';
+import { Categories } from '../home/category-list/settings';
 
 @Component({
   selector: 'app-manager',

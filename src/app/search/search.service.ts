@@ -4,6 +4,9 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 // Interfaces & Settings
 import { Categories, CategoriesValues } from '../home/category-list/settings';
 
+// Services
+import { SessionService } from '../session/session.service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +26,11 @@ export class SearchService {
     this.categoryChanged.emit(this.activeCategoryValue);
   }
 
-  getCategory(): string {
+  getCategory(): Categories {
+    return this.activeCategory;
+  }
+
+  getCategoryValue(): string {
     return this.activeCategoryValue;
   }
 }

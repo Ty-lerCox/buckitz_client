@@ -32,11 +32,20 @@
         style="display: flex; justify-content: center; align-items: center;"
       >
         <div class="row" style="line-height: 25px;">
-          <div class="col-12">
-            {{ asset.asset_cost | currency: "USD":"symbol":"1.0" }}
+          <div *ngIf="category === categories.Boats">
+            <div class="col-12">
+              {{ asset.asset_cost | currency: "USD":"symbol":"1.0" }}
+            </div>
+            <div class="col-12">{{ asset.asset_slider_2_value }}</div>
+            <div class="col-12">{{ asset.asset_slider_1_value }} '</div>
           </div>
-          <div class="col-12">{{ asset.asset_slider_2_value }}</div>
-          <div class="col-12">{{ asset.asset_slider_1_value }} '</div>
+          <div *ngIf="category === categories.Cars">
+            <div class="col-12">
+              {{ asset.asset_cost | currency: "USD":"symbol":"1.0" }}
+            </div>
+            <div class="col-12">{{ asset.asset_slider_2_value }}</div>
+            <div class="col-12">{{ asset.asset_slider_1_value }} '</div>
+          </div>
         </div>
       </div>
       <div
