@@ -16,7 +16,6 @@ export interface Asset {
   asset_cmb_6_title?: string;
   asset_cmb_6_value?: string;
   asset_monthly_maintance: number;
-  asset_name: string;
   asset_radio_1_title?: string;
   asset_radio_1_value?: string;
   asset_radio_1_valueList?: string;

@@ -43,4 +43,18 @@ export class NavbarComponent implements OnInit {
       return this.categoryValue + 's';
     }
   }
+
+  getIcon() {
+    if (this.category === Categories.None) {
+      return this.faHome;
+    } else if (this.category === Categories.Cars) {
+      return this.faTruckPickup;
+    } else if (this.category === Categories.Boats) {
+      return this.faShip;
+    } else if (this.category === Categories.House) {
+      return this.faHome;
+    } else {
+      return this.faHome;
+    }
+  }
 }

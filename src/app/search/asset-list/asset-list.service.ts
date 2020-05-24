@@ -43,6 +43,7 @@ export class AssetListService {
     });
     // this.addAssetBoat();
     // this.addImage();
+    // this.addAssetHouse();
   }
 
   getAssetsByCategory(category: string) {
@@ -124,7 +125,6 @@ export class AssetListService {
       asset_cmb_3_value: 'Sedan',
       asset_cost: 45000,
       asset_monthly_maintance: 800,
-      asset_name: 'Tesla Model 3',
       asset_radio_1_title: '',
       asset_radio_1_value: '',
       asset_radio_1_valueList: '',
@@ -135,6 +135,32 @@ export class AssetListService {
       asset_slider_1_value: 0,
       asset_slider_2_title: '',
       asset_slider_2_value: 0,
+    };
+    this.firestore.collection('asset').add(asset);
+  }
+
+  addAssetHouse() {
+    const asset: Asset = {
+      asset_category: 'house',
+      asset_cmb_1_title: 'Location',
+      asset_cmb_1_value: 'Charleston, SC',
+      asset_cost: 12500000,
+      asset_monthly_maintance: 75000,
+      asset_radio_1_title: 'Type',
+      asset_radio_1_value: 'for sale',
+      asset_radio_1_valueList: 'all,rent,for sale',
+      asset_slider_1_title: 'Beds',
+      asset_slider_1_value: 5,
+      asset_slider_2_title: 'Baths',
+      asset_slider_2_value: 6,
+      asset_slider_3_title: 'sqft',
+      asset_slider_3_value: 7800,
+      asset_slider_4_title: 'Year',
+      asset_slider_4_value: 1835,
+      asset_slider_5_title: 'Lot Size',
+      asset_slider_5_value: 0.6,
+      asset_source:
+        'https://www.zillow.com/homedetails/1130-Holloway-Ct-Johns-Island-SC-29455/80214695_zpid/',
     };
     this.firestore.collection('asset').add(asset);
   }
@@ -150,7 +176,6 @@ export class AssetListService {
       asset_cmb_3_value: 'Pro Team 195 TXW',
       asset_cost: 30000,
       asset_monthly_maintance: 400,
-      asset_name: '2020 Pro Team 195 TXW',
       asset_radio_1_title: 'condition',
       asset_radio_1_value: 'new',
       asset_radio_1_valueList: 'all,new,used',
@@ -169,9 +194,9 @@ export class AssetListService {
 
   addImage() {
     const image: Image = {
-      image_asset_id: 'pHtRSVM8DhL8SaKtuYm2',
+      image_asset_id: 'c1bGkKJhueHIU94JxbfR',
       image_asset_src:
-        'https://images.boats.com/resize/1/35/15/7223515_20190919100224775_1_XLARGE.jpg?t=1582381124000',
+        'https://photos.zillowstatic.com/uncropped_scaled_within_1536_1152/ISf0pz87piadge0000000000.webp',
     };
     this.firestore.collection('image').add(image);
   }

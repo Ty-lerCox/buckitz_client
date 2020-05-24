@@ -25,7 +25,7 @@
           aria-expanded="false"
         >
           <fa-icon
-            [icon]="faHome"
+            [icon]="getIcon()"
             style="padding-right: 15px; color: #f44348;"
           ></fa-icon>
           {{ getCurrentPage() | titlecase }}
@@ -47,6 +47,16 @@
               style="padding-right: 15px; color: #f44348;"
             ></fa-icon>
             Boats
+          </a>
+          <a
+            class="dropdown-item"
+            [routerLink]="['/search/', categories.House]"
+          >
+            <fa-icon
+              [icon]="faHome"
+              style="padding-right: 15px; color: #f44348;"
+            ></fa-icon>
+            Houses
           </a>
         </div>
       </li>

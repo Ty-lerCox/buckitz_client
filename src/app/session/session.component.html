@@ -1,7 +1,7 @@
 <div class="container">
   <div class="session rounded">
     <div class="row">
-      <div class="col-md-10 col-xs-12" style="font-size: 22px;">
+      <div class="col-md-12 col-xs-12" style="font-size: 22px;">
         <span *ngIf="!session">
           <button
             class="btn"
@@ -34,9 +34,75 @@
             Manage Session
           </button></span
         >
-        <span *ngIf="isCollapsed" style="font-size: 12px;">
+        <div *ngIf="isCollapsed" style="font-size: 12px; text-align: center;">
           Available: {{ getTotalIncome() | currency: "USD":"symbol":"1.0" }}
-        </span>
+        </div>
+        <div *ngIf="session && isCollapsed">
+          <div class="col-12" style="padding-top: 10px; font-size: 12px;">
+            <div
+              class="row"
+              style="text-align: center; background-color: #131c2e;"
+            >
+              <div class="col-4">
+                Cars
+              </div>
+              <div class="col-4">
+                {{ getAssetsCountByCategory(categories.Cars) }}
+              </div>
+              <div class="col-4">
+                {{
+                  getAssetsCostByCategory(categories.Cars)
+                    | currency: "USD":"symbol":"1.0"
+                }}
+              </div>
+            </div>
+            <div class="row" style="text-align: center;">
+              <div class="col-4">
+                Boats
+              </div>
+              <div class="col-4">
+                {{ getAssetsCountByCategory(categories.Boats) }}
+              </div>
+              <div class="col-4">
+                {{
+                  getAssetsCostByCategory(categories.Boats)
+                    | currency: "USD":"symbol":"1.0"
+                }}
+              </div>
+            </div>
+            <div
+              class="row"
+              style="text-align: center; background-color: #131c2e;"
+            >
+              <div class="col-4">
+                Houses
+              </div>
+              <div class="col-4">
+                {{ getAssetsCountByCategory(categories.House) }}
+              </div>
+              <div class="col-4">
+                {{
+                  getAssetsCostByCategory(categories.House)
+                    | currency: "USD":"symbol":"1.0"
+                }}
+              </div>
+            </div>
+            <div class="row" style="text-align: center;">
+              <div class="col-4">
+                Children
+              </div>
+              <div class="col-4">
+                {{ getAssetsCountByCategory(categories.Children) }}
+              </div>
+              <div class="col-4">
+                {{
+                  getAssetsCostByCategory(categories.Children)
+                    | currency: "USD":"symbol":"1.0"
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         *ngIf="!isCollapsed"
@@ -134,70 +200,6 @@
             getTotalIncome() | currency: "USD":"symbol":"1.0"
           }}</span>
         </div>
-        <div class="col-12" style="padding-top: 10px;">
-          <div
-            class="row"
-            style="text-align: center; background-color: #131c2e;"
-          >
-            <div class="col-4">
-              Cars
-            </div>
-            <div class="col-4">
-              {{ getAssetsCountByCategory(categories.Cars) }}
-            </div>
-            <div class="col-4">
-              {{
-                getAssetsCostByCategory(categories.Cars)
-                  | currency: "USD":"symbol":"1.0"
-              }}
-            </div>
-          </div>
-          <div class="row" style="text-align: center;">
-            <div class="col-4">
-              Boats
-            </div>
-            <div class="col-4">
-              {{ getAssetsCountByCategory(categories.Boats) }}
-            </div>
-            <div class="col-4">
-              {{
-                getAssetsCostByCategory(categories.Boats)
-                  | currency: "USD":"symbol":"1.0"
-              }}
-            </div>
-          </div>
-          <div
-            class="row"
-            style="text-align: center; background-color: #131c2e;"
-          >
-            <div class="col-4">
-              Houses
-            </div>
-            <div class="col-4">
-              {{ getAssetsCountByCategory(categories.House) }}
-            </div>
-            <div class="col-4">
-              {{
-                getAssetsCostByCategory(categories.House)
-                  | currency: "USD":"symbol":"1.0"
-              }}
-            </div>
-          </div>
-          <div class="row" style="text-align: center;">
-            <div class="col-4">
-              Children
-            </div>
-            <div class="col-4">
-              {{ getAssetsCountByCategory(categories.Children) }}
-            </div>
-            <div class="col-4">
-              {{
-                getAssetsCostByCategory(categories.Children)
-                  | currency: "USD":"symbol":"1.0"
-              }}
-            </div>
-          </div>
-        </div>
       </div>
       <div *ngIf="!session" class="row" style="padding-top: 65px;">
         <div class="col-md-12">
@@ -213,6 +215,16 @@
           </button>
         </div>
       </div>
+      <div>
+        <div *ngIf="session" class="col-md-12" style="padding-top: 10px;">
+          <button
+            class="btn btn-primary col-md-12"
+            [cdkCopyToClipboard]="sessionId"
+          >
+            Copy Session ID
+          </button>
+        </div>
+      </div>
       <div *ngIf="isJoining" class="row" style="padding-top: 35px;">
         <div class="col-md-12">
           <input
@@ -223,16 +235,6 @@
             autocomplete="off"
             [(ngModel)]="sessionId"
           />
-        </div>
-      </div>
-      <div>
-        <div *ngIf="session" class="col-md-12" style="padding-top: 10px;">
-          <button
-            class="btn btn-primary col-md-12"
-            [cdkCopyToClipboard]="sessionId"
-          >
-            Copy Session ID
-          </button>
         </div>
       </div>
       <div class="row" style="padding-top: 10px;">
