@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="row" *ngIf="isCollapsed">
-      <div *ngFor="let asset of assets">
+      <div class="col-12" *ngFor="let asset of assets">
         <app-manager-asset
           [asset]="asset"
           [images]="getAssetImages(asset)"

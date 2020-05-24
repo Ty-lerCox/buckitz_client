@@ -21,8 +21,6 @@ import {
   faCaretRight,
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
-import { SessionService } from '../session/session.service';
-import { Session } from 'protractor';
 import { SearchService } from '../search/search.service';
 import { Categories } from '../home/category-list/settings';
 
@@ -75,8 +73,8 @@ export class ManagerComponent implements OnInit {
         });
       }
     );
-    this.searchService.categoryChanged.subscribe((category: string) => {
-      if (category !== '' && Utility.isDefined(category)) {
+    this.searchService.categoryChanged.subscribe((category: Categories) => {
+      if (Utility.isDefined(category)) {
         setTimeout(() => {
           this.isSearching = true;
         });

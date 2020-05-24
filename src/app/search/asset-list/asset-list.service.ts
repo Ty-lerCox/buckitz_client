@@ -35,7 +35,7 @@ export class AssetListService {
         this.sessionAssets = [];
       }
     });
-    this.searchService.categoryChanged.subscribe((category: string) => {
+    this.searchService.categoryValueChanged.subscribe((category: string) => {
       this.assets = [];
       this.getAssets(category);
     });
