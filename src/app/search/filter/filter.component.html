@@ -43,29 +43,49 @@
           ></app-button-checkbox>
         </div>
         <div class="col-xs-12" *ngIf="Utility.isDefined(cmb1Title)">
-          <app-dropdown [title]="cmb1Title" [options]="cmb1ValueList"></app-dropdown>
+          <app-dropdown
+            [title]="cmb1Title"
+            [options]="cmb1ValueList"
+          ></app-dropdown>
         </div>
         <div class="col-xs-12" *ngIf="Utility.isDefined(cmb2Title)">
-          <app-dropdown [title]="cmb2Title" [options]="cmb2ValueList"></app-dropdown>
+          <app-dropdown
+            [title]="cmb2Title"
+            [options]="cmb2ValueList"
+          ></app-dropdown>
         </div>
         <div class="col-xs-12" *ngIf="Utility.isDefined(cmb3Title)">
-          <app-dropdown [title]="cmb3Title" [options]="cmb3ValueList"></app-dropdown>
+          <app-dropdown
+            [title]="cmb3Title"
+            [options]="cmb3ValueList"
+          ></app-dropdown>
         </div>
         <div class="col-xs-12" *ngIf="Utility.isDefined(cmb4Title)">
-          <app-dropdown [title]="cmb4Title" [options]="cmb4ValueList"></app-dropdown>
+          <app-dropdown
+            [title]="cmb4Title"
+            [options]="cmb4ValueList"
+          ></app-dropdown>
         </div>
         <div class="col-xs-12" *ngIf="Utility.isDefined(cmb5Title)">
-          <app-dropdown [title]="cmb5Title" [options]="cmb5ValueList"></app-dropdown>
+          <app-dropdown
+            [title]="cmb5Title"
+            [options]="cmb5ValueList"
+          ></app-dropdown>
         </div>
         <div class="col-xs-12" *ngIf="Utility.isDefined(cmb6Title)">
-          <app-dropdown [title]="cmb6Title" [options]="cmb6ValueList"></app-dropdown>
+          <app-dropdown
+            [title]="cmb6Title"
+            [options]="cmb6ValueList"
+          ></app-dropdown>
         </div>
       </div>
     </div>
     <div class="col-xs-2" style="margin-left: 15px; margin-right: 15px;">
       <input
         type="text"
-        placeholder="Search Make, Model"
+        placeholder="Search {{
+          cmb1Title + ', ' + cmb2Title + ', etc.' | lowercase
+        }}"
         class="form-control"
         autocomplete="off"
         style="width: 100%;"
