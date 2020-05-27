@@ -9,6 +9,7 @@ import {
   faShip,
   faHome,
   faTruckPickup,
+  faChild,
 } from '@fortawesome/free-solid-svg-icons';
 import { SearchService } from '../search/search.service';
 
@@ -20,6 +21,7 @@ import { SearchService } from '../search/search.service';
 export class NavbarComponent implements OnInit {
   public faShip = faShip;
   public faHome = faHome;
+  public faChild = faChild;
   public faTruckPickup = faTruckPickup;
   public categories = Categories;
   public category = Categories.None;
@@ -39,6 +41,8 @@ export class NavbarComponent implements OnInit {
   getCurrentPage(): string {
     if (this.category === Categories.None) {
       return 'Home';
+    } else if (this.category === Categories.Children) {
+      return this.categoryValue;
     } else {
       return this.categoryValue + 's';
     }
@@ -53,6 +57,8 @@ export class NavbarComponent implements OnInit {
       return this.faShip;
     } else if (this.category === Categories.House) {
       return this.faHome;
+    } else if (this.category === Categories.Children) {
+      return this.faChild;
     } else {
       return this.faHome;
     }

@@ -35,7 +35,13 @@
           </button></span
         >
         <div *ngIf="isCollapsed" style="font-size: 12px; text-align: center;">
-          Available: {{ getTotalIncome() | currency: "USD":"symbol":"1.0" }}
+          Available:
+          <span *ngIf="0 > getTotalIncome()" style="color: red;">{{
+            getTotalIncome() | currency: "USD":"symbol":"1.0"
+          }}</span>
+          <span *ngIf="getTotalIncome() >= 0">{{
+            getTotalIncome() | currency: "USD":"symbol":"1.0"
+          }}</span>
         </div>
         <div *ngIf="session && isCollapsed">
           <div class="col-12" style="padding-top: 10px; font-size: 12px;">

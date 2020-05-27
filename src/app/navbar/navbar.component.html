@@ -58,6 +58,16 @@
             ></fa-icon>
             Houses
           </a>
+          <a
+            class="dropdown-item"
+            [routerLink]="['/search/', categories.Children]"
+          >
+            <fa-icon
+              [icon]="faChild"
+              style="padding-right: 15px; padding-left: 5px; color: #f44348;"
+            ></fa-icon>
+            Children
+          </a>
         </div>
       </li>
       <li *ngIf="false" class="nav-item">
