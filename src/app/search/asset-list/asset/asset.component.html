@@ -12,7 +12,7 @@
             height: 150px;
           "
         />
-        <div class="img-overlay">
+        <div class="img-overlay" *ngIf="category !== categories.Children">
           <button
             (click)="nextImage()"
             class="btn btn-lg btn-default"
@@ -61,6 +61,16 @@
             <div class="col-12">
               {{ asset.asset_slider_4_value }}
             </div>
+          </div>
+          <div *ngIf="category === categories.Children">
+            <div class="col-12">
+              {{
+                asset.asset_monthly_maintance * 12 * 18
+                  | currency: "USD":"symbol":"1.0"
+              }}
+            </div>
+            <div class="col-12">{{ asset.asset_cmb_1_value }}</div>
+            <div class="col-12">{{ asset.asset_cmb_2_value }}</div>
           </div>
         </div>
       </div>
