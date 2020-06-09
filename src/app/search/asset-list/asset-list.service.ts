@@ -60,9 +60,7 @@ export class AssetListService {
         });
         const assetIds = this.assets.map((asset: Asset) => asset.asset_id);
         this.firestore
-          .collection('image', (ref) =>
-            ref.where('image_asset_id', 'in', assetIds)
-          )
+          .collection('image', (ref) => ref.where('image_index', '==', 0))
           .snapshotChanges()
           .subscribe((imageData: any) => {
             this.assetImages = imageData.map((e: any) => {
