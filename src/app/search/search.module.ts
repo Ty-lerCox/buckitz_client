@@ -21,6 +21,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import 'hammerjs';
 import 'mousetrap';
 import { GalleryModule } from '@ks89/angular-modal-gallery';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Routes = [
   {
@@ -46,8 +47,10 @@ const routes: Routes = [
     FormsModule,
     FontAwesomeModule,
     NgbModule,
+    MatDialogModule,
     GalleryModule.forRoot(),
     RouterModule.forChild(routes),
   ],
+  entryComponents: [ImageModalComponent],
 })
 export class SearchModule {}

@@ -1,4 +1,7 @@
-<app-image-modal *ngIf="modalState"></app-image-modal>
+<app-image-modal
+  *ngIf="modalState"
+  style="min-width: 100vw; min-height: 100vh;"
+></app-image-modal>
 
 <div class="container" style="font-size: 13px;" *ngIf="assets.length > 0">
   <div class="manager rounded">

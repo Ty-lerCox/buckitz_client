@@ -35,3 +35,11 @@ input {
   /* adjust 'height' to position overlay content vertically */
   height: 50%;
 }
+
+.full-screen-modal .mat-dialog-container {
+  max-width: none;
+}
+::ng-deep .mat-dialog-container {
+  padding: 0px !important;
+  background-color: #131c2e;
+}

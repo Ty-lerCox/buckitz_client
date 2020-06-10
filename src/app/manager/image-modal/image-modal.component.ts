@@ -13,6 +13,7 @@ import {
   Image,
   ImageEvent,
 } from '@ks89/angular-modal-gallery';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-image-modal',
@@ -126,7 +127,11 @@ export class ImageModalComponent implements OnInit {
   @Input() asset: Asset;
   @Input() images: Image[];
 
-  constructor() {}
+  constructor(public dialogRef: MatDialogRef<ImageModalComponent>) {}
 
   ngOnInit(): void {}
+
+  close() {
+    this.dialogRef.close();
+  }
 }

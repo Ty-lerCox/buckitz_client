@@ -15,6 +15,9 @@ import { ManagerService } from './manager.service';
 // Services
 import { AssetListService } from '../search/asset-list/asset-list.service';
 
+// Components
+import { ImageModalComponent } from './image-modal/image-modal.component';
+
 // External Components
 import {
   faMinus,
@@ -23,6 +26,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { SearchService } from '../search/search.service';
 import { Categories, CategoriesValues } from '../home/category-list/settings';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-manager',
@@ -48,14 +52,15 @@ export class ManagerComponent implements OnInit {
   constructor(
     private managerService: ManagerService,
     private assetListService: AssetListService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.category = this.searchService.getCategory();
     this.categoryValue = this.searchService.getCategoryValue();
     this.managerService.modalStateChanged.subscribe((state: boolean) => {
-      this.modalState = state;
+      this.openDialog();
     });
     this.assetListService.assetsChanged.subscribe((assets: Asset[]) => {
       this.allAssets = assets;
@@ -124,5 +129,20 @@ export class ManagerComponent implements OnInit {
     });
     result = (result / 0.3) * 12;
     return result;
+  }
+
+  openDialog() {
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig = {
+      position: {
+        top: '0px',
+        right: '0px',
+      },
+      height: '50vh',
+      width: '100vw',
+      maxWidth: '',
+      panelClass: 'full-screen-modal',
+    };
+    this.matDialog.open(ImageModalComponent, dialogConfig);
   }
 }
