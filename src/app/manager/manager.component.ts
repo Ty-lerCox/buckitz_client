@@ -116,4 +116,13 @@ export class ManagerComponent implements OnInit {
     });
     return result;
   }
+
+  getSuggestedYearlyIncome(): number {
+    let result = 0;
+    this.assets.forEach((asset: Asset) => {
+      result = result + asset.asset_monthly_maintance;
+    });
+    result = (result / 0.3) * 12;
+    return result;
+  }
 }

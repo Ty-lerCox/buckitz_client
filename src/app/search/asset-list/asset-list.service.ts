@@ -49,7 +49,9 @@ export class AssetListService {
 
   getAssetsByCategory(category: string) {
     this.firestore
-      .collection('asset', (ref) => ref.where('asset_category', '==', category))
+      .collection('asset', (ref) =>
+        ref.where('asset_category', '==', category).limit(10)
+      )
       .snapshotChanges()
       .subscribe((data: any) => {
         this.assets = data.map((e: any) => {
@@ -60,7 +62,9 @@ export class AssetListService {
         });
         const assetIds = this.assets.map((asset: Asset) => asset.asset_id);
         this.firestore
-          .collection('image', (ref) => ref.where('image_index', '==', 0))
+          .collection('image', (ref) =>
+            ref.where('image_asset_id', 'in', assetIds)
+          )
           .snapshotChanges()
           .subscribe((imageData: any) => {
             this.assetImages = imageData.map((e: any) => {
