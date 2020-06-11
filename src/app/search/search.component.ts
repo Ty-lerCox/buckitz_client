@@ -27,7 +27,6 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.searchService.setCategory(+params.get('category'));
-      console.log('setting category: ' + +params.get('category'));
     });
     this.sessionService.sessionChanged.subscribe((session: boolean) => {
       this.session = session;

@@ -50,11 +50,11 @@ export class ManagerAssetComponent implements OnInit {
   }
 
   openImageModal() {
-    this.managerService.modalStateChanged.emit(true);
+    this.managerService.modalStateChanged.emit(this.images);
   }
 
   setModalState(state: boolean) {
     this.modalState = state;
-    this.managerService.modalStateChanged.emit(state);
+    this.managerService.modalStateChanged.emit(this.images);
   }
 }

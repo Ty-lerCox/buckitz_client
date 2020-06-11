@@ -47,6 +47,7 @@ export class ManagerComponent implements OnInit {
   public isSearching = false;
   public currentImg = 0;
   public currentImgSrc = '';
+  public currentImages: Image[] = [];
   public modalState = false;
 
   constructor(
@@ -59,8 +60,8 @@ export class ManagerComponent implements OnInit {
   ngOnInit(): void {
     this.category = this.searchService.getCategory();
     this.categoryValue = this.searchService.getCategoryValue();
-    this.managerService.modalStateChanged.subscribe((state: boolean) => {
-      this.openDialog();
+    this.managerService.modalStateChanged.subscribe((images: Image[]) => {
+      this.openDialog(images);
     });
     this.assetListService.assetsChanged.subscribe((assets: Asset[]) => {
       this.allAssets = assets;
@@ -88,7 +89,6 @@ export class ManagerComponent implements OnInit {
     });
     this.searchService.categoryChanged.subscribe((category: Categories) => {
       this.category = category;
-      console.log(this.category);
       if (Utility.isDefined(category)) {
         setTimeout(() => {
           this.isSearching = true;
@@ -131,7 +131,7 @@ export class ManagerComponent implements OnInit {
     return result;
   }
 
-  openDialog() {
+  openDialog(images: Image[]) {
     let dialogConfig = new MatDialogConfig();
     dialogConfig = {
       position: {
@@ -142,6 +142,7 @@ export class ManagerComponent implements OnInit {
       width: '100vw',
       maxWidth: '',
       panelClass: 'full-screen-modal',
+      data: { dataImages: images },
     };
     this.matDialog.open(ImageModalComponent, dialogConfig);
   }
