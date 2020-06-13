@@ -38,6 +38,9 @@ export class SessionService {
       .doc(sessionId)
       .snapshotChanges()
       .subscribe((session: any) => {
+        this.storage
+          .set('sessionId', this.currentSession.id)
+          .subscribe(() => {});
         this.currentSession = {
           id: session.payload.id,
           ...(session.payload.data() as Session),
@@ -59,24 +62,23 @@ export class SessionService {
             });
             this.sessionChanged.emit(true);
             if (this.sharedAsset) {
-              const docRef = this.firestore
-                .collection('asset')
-                .doc(this.currentSession.session_share_asset_id);
-              docRef
-                .get()
-                .toPromise()
-                .then((sharedAsset: any) => {
-                  this.managerService.modalStateChanged.emit({
-                    id: sharedAsset.data().asset_id,
-                    images: sharedAsset.data().asset_images,
-                    index: this.currentSession.session_share_asset_index,
-                  });
-                })
-                .catch((error: any) => {});
+              if (this.currentSession.session_share_asset_id !== '') {
+                const docRef = this.firestore
+                  .collection('asset')
+                  .doc(this.currentSession.session_share_asset_id);
+                docRef
+                  .get()
+                  .toPromise()
+                  .then((sharedAsset: any) => {
+                    this.managerService.modalStateChanged.emit({
+                      id: sharedAsset.data().asset_id,
+                      images: sharedAsset.data().asset_images,
+                      index: this.currentSession.session_share_asset_index,
+                    });
+                  })
+                  .catch((error: any) => {});
+              }
             }
-            this.storage
-              .set('sessionId', this.currentSession.id)
-              .subscribe(() => {});
           });
       });
   }
@@ -95,10 +97,12 @@ export class SessionService {
   }
 
   shareAssetWithSession(assetID: string, imageIndex: number) {
-    this.firestore.collection('session').doc(this.currentSession.id).update({
-      session_share_asset_id: assetID,
-      session_share_asset_index: imageIndex,
-    });
+    if (this.currentSession.id !== '') {
+      this.firestore.collection('session').doc(this.currentSession.id).update({
+        session_share_asset_id: assetID,
+        session_share_asset_index: imageIndex,
+      });
+    }
   }
 
   updateSession(session: Session) {
