@@ -10,42 +10,73 @@ import { Session, User } from './settings';
 
 // External Components
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { ManagerService } from '../manager/manager.service';
+import { Asset } from '../search/asset-list/asset/settings';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionService {
-  private sessionId = '';
   private users: User[] = [];
+  private sharedAsset = false;
+  private currentSession: Session = {
+    id: '',
+    session_save_date: '',
+  };
 
   @Output() sessionChanged: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private firestore: AngularFirestore,
+    private managerService: ManagerService,
     private storage: StorageMap
   ) {}
 
   getSession(sessionId: string) {
-    let id = '';
     this.firestore
       .collection('session')
       .doc(sessionId)
-      .get()
+      .snapshotChanges()
       .subscribe((session: any) => {
-        id = session.id;
+        this.currentSession = {
+          id: session.payload.id,
+          ...(session.payload.data() as Session),
+        };
+        if (this.currentSession.session_share_asset_id !== '') {
+          this.sharedAsset = true;
+        }
         this.firestore
-          .collection('user', (ref) => ref.where('user_session_id', '==', id))
+          .collection('user', (ref) =>
+            ref.where('user_session_id', '==', this.currentSession.id)
+          )
           .snapshotChanges()
           .subscribe((data: any) => {
-            this.users = data.map((e) => {
+            this.users = data.map((e: any) => {
               return {
                 id: e.payload.doc.id,
                 ...(e.payload.doc.data() as User),
               } as User;
             });
-            this.sessionId = id;
             this.sessionChanged.emit(true);
-            this.storage.set('sessionId', id).subscribe(() => {});
+            if (this.sharedAsset) {
+              const docRef = this.firestore
+                .collection('asset')
+                .doc(this.currentSession.session_share_asset_id);
+              docRef
+                .get()
+                .toPromise()
+                .then((sharedAsset: any) => {
+                  this.managerService.modalStateChanged.emit({
+                    id: sharedAsset.data().asset_id,
+                    images: sharedAsset.data().asset_images,
+                    index: this.currentSession.session_share_asset_index,
+                  });
+                })
+                .catch((error: any) => {});
+            }
+            this.storage
+              .set('sessionId', this.currentSession.id)
+              .subscribe(() => {});
           });
       });
   }
@@ -61,6 +92,13 @@ export class SessionService {
         this.getSession(docRef.id);
       })
       .catch((error) => console.error('Error adding document: ', error));
+  }
+
+  shareAssetWithSession(assetID: string, imageIndex: number) {
+    this.firestore.collection('session').doc(this.currentSession.id).update({
+      session_share_asset_id: assetID,
+      session_share_asset_index: imageIndex,
+    });
   }
 
   updateSession(session: Session) {
@@ -81,7 +119,7 @@ export class SessionService {
     this.storage.get('sessionId').subscribe((value: string) => {
       if (Utility.isDefined(value)) {
         this.getSession(value);
-        this.sessionId = value;
+        this.currentSession.id = value;
         this.sessionChanged.emit(true);
       }
     });
@@ -99,7 +137,7 @@ export class SessionService {
           .update(user)
           .catch((err) => {});
       } else {
-        this.createUser(user, this.sessionId);
+        this.createUser(user, this.currentSession.id);
       }
     });
   }
@@ -109,13 +147,23 @@ export class SessionService {
   }
 
   getSessionId(): string {
-    return this.sessionId;
+    return this.currentSession.id;
   }
 
   clearSession() {
     this.storage.clear();
-    this.sessionId = null;
+    this.currentSession.id = null;
     this.users = [{}];
     this.sessionChanged.emit(false);
+  }
+
+  clearSharedAsset() {
+    if (this.sharedAsset) {
+      this.firestore.collection('session').doc(this.currentSession.id).update({
+        session_share_asset_id: '',
+        session_share_asset_index: 0,
+      });
+      this.sharedAsset = false;
+    }
   }
 }

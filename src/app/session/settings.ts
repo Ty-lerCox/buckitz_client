@@ -1,6 +1,8 @@
 export interface Session {
   id: string;
   session_save_date: string;
+  session_share_asset_id?: string;
+  session_share_asset_index?: string;
 }
 export interface User {
   id?: string;

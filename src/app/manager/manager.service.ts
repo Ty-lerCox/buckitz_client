@@ -7,7 +7,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 export class ManagerService {
   private modalState: boolean;
 
-  @Output() modalStateChanged: EventEmitter<string[]> = new EventEmitter();
+  @Output() modalStateChanged: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 }

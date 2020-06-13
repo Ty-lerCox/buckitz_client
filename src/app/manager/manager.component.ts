@@ -54,8 +54,8 @@ export class ManagerComponent implements OnInit {
   ngOnInit(): void {
     this.category = this.searchService.getCategory();
     this.categoryValue = this.searchService.getCategoryValue();
-    this.managerService.modalStateChanged.subscribe((images: string[]) => {
-      this.openDialog(images);
+    this.managerService.modalStateChanged.subscribe((data: any) => {
+      this.openDialog(data.id, data.images, data.index);
     });
     this.assetListService.assetsChanged.subscribe((assets: Asset[]) => {
       this.allAssets = assets;
@@ -112,7 +112,7 @@ export class ManagerComponent implements OnInit {
     return result;
   }
 
-  openDialog(images: string[]) {
+  openDialog(assetID: string, images: string[], index: number) {
     let dialogConfig = new MatDialogConfig();
     dialogConfig = {
       position: {
@@ -123,7 +123,11 @@ export class ManagerComponent implements OnInit {
       width: '100vw',
       maxWidth: '',
       panelClass: 'full-screen-modal',
-      data: { dataImages: images },
+      data: {
+        id: assetID,
+        dataImages: images,
+        index,
+      },
     };
     this.matDialog.open(ImageModalComponent, dialogConfig);
   }

@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 // Components
 import { AppComponent } from './app.component';
@@ -48,6 +49,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     FontAwesomeModule,
     FormsModule,
     ClipboardModule,
+    ScrollToModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
   ],
