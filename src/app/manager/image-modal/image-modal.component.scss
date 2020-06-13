@@ -1,3 +1,9 @@
 :host ::ng-deep #current-image {
   max-height: 80vh !important;
+  object-fit: scale-down !important;
+}
+:host ::ng-deep .btn {
+  border: #ffffff0e solid 1px;
+  border-radius: 0px;
+  min-width: 50vw;
 }

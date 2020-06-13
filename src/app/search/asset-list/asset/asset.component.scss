@@ -2,12 +2,14 @@
   background-color: #202b43;
   border-radius: 5px;
 }
+
 .card-body {
   padding: 0px;
 }
+
 .add:hover {
   cursor: pointer;
-  background-color: #4c5f80;
+  background-color: #2b3855 !important;
 }
 
 .img-wrapper {
@@ -22,8 +24,6 @@
 .img-overlay {
   position: absolute;
   top: 10px;
-  //bottom: 0;
-  //left: 0;
   right: 10px;
   text-align: right;
 }
@@ -31,6 +31,5 @@
 .img-overlay:before {
   content: " ";
   display: block;
-  /* adjust 'height' to position overlay content vertically */
   height: 50%;
 }

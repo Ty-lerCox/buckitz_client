@@ -10,6 +10,7 @@ import { faPlus, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { AssetService } from './asset.service';
 import { AssetListService } from '../asset-list.service';
 import { SearchService } from '../../search.service';
+import { Utility } from 'src/app/utility';
 
 @Component({
   selector: 'app-asset',
@@ -34,6 +35,8 @@ export class AssetComponent implements OnInit {
 
   add(): void {
     this.assetListService.addAssetToSession(this.asset);
+    const el = document.getElementById('manager');
+    Utility.scroll(el);
   }
 
   nextImage(): void {
