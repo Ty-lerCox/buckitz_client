@@ -34,9 +34,6 @@ export class AssetListComponent implements OnInit {
     this.assetListService.assetsChanged.subscribe((assets: Asset[]) => {
       this.assets = assets;
     });
-    this.assetListService.assetImagesChanged.subscribe((images: Image[]) => {
-      this.assetImages = images;
-    });
     this.searchService.categoryChanged.subscribe((category: Categories) => {
       this.category = category;
     });

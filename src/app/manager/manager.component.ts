@@ -66,9 +66,6 @@ export class ManagerComponent implements OnInit {
     this.assetListService.assetsChanged.subscribe((assets: Asset[]) => {
       this.allAssets = assets;
     });
-    this.assetListService.assetImagesChanged.subscribe((images: Image[]) => {
-      this.assetImages = images;
-    });
     this.assetListService.sessionAssetsChanged.subscribe(
       (sessionAssets: SessionAsset[]) => {
         this.sessionAssets = sessionAssets;

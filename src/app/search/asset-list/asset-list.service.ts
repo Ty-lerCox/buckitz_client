@@ -23,7 +23,6 @@ export class AssetListService {
   @Output() sessionAssetsChanged: EventEmitter<
     SessionAsset[]
   > = new EventEmitter();
-  @Output() assetImagesChanged: EventEmitter<Image[]> = new EventEmitter();
   @Output() assetsChanged: EventEmitter<Asset[]> = new EventEmitter();
 
   constructor(
@@ -60,23 +59,8 @@ export class AssetListService {
             ...(e.payload.doc.data() as Asset),
           } as Asset;
         });
-        const assetIds = this.assets.map((asset: Asset) => asset.asset_id);
-        this.firestore
-          .collection('image', (ref) =>
-            ref.where('image_asset_id', 'in', assetIds)
-          )
-          .snapshotChanges()
-          .subscribe((imageData: any) => {
-            this.assetImages = imageData.map((e: any) => {
-              return {
-                image_asset_id: e.payload.doc.id,
-                ...(e.payload.doc.data() as Image),
-              } as Image;
-            });
-            this.assetsChanged.emit(this.assets);
-            this.assetImagesChanged.emit(this.assetImages);
-            this.getSessionAssets();
-          });
+        this.assetsChanged.emit(this.assets);
+        this.getSessionAssets();
       });
   }
 

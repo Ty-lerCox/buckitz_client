@@ -47,6 +47,7 @@ export interface Asset {
   asset_slider_6_title?: string;
   asset_slider_6_value?: number;
   asset_source?: string;
+  asset_images?: string[];
 }
 
 export interface Image {
