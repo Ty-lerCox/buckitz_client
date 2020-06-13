@@ -5,6 +5,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Image } from '@ks89/angular-modal-gallery';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SessionService } from 'src/app/session/session.service';
+import { ManagerService } from '../manager.service';
 
 @Component({
   selector: 'app-image-modal',
@@ -24,8 +25,12 @@ export class ImageModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ImageModalComponent>,
     private sessionService: SessionService,
+    private managerService: ManagerService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    const id = Math.round(Math.random() * 1000);
+    this.managerService.addModalID(id);
+    this.galleryId = id;
     const imagesToSort: Image[] = [];
     this.assetID = data.id;
     data.dataImages.forEach((image: string, index: number) => {
@@ -39,7 +44,7 @@ export class ImageModalComponent implements OnInit {
     });
     this.images = imagesToSort.sort((a, b) => (a.id > b.id ? 1 : -1));
     if (data.index !== 0) {
-      //this.setImage(data.index);
+      // this.setImage(data.index);
     }
   }
 
