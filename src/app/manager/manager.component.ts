@@ -119,7 +119,7 @@ export class ManagerComponent implements OnInit {
         top: '0px',
         right: '0px',
       },
-      height: '50vh',
+      height: '100vh',
       width: '100vw',
       maxWidth: '',
       panelClass: 'full-screen-modal',
