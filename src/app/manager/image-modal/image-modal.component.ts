@@ -2,10 +2,7 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 
 // Interfaces & Settings
-import {
-  Asset,
-  Image as AssetImage,
-} from '../../search/asset-list/asset/settings';
+import { Asset } from '../../search/asset-list/asset/settings';
 
 // External Components
 import {
@@ -34,11 +31,11 @@ export class ImageModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     const imagesToSort: Image[] = [];
-    data.dataImages.forEach((image: AssetImage) => {
+    data.dataImages.forEach((image: string, index: number) => {
       const newImage: Image = {
-        id: image.image_index,
+        id: index,
         modal: {
-          img: image.image_asset_src,
+          img: image,
         },
       };
       imagesToSort.push(newImage);

@@ -2,7 +2,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 // Interfaces & Settings
-import { Asset, Image } from './settings';
+import { Asset } from './settings';
 import { Categories } from '../../../home/category-list/settings';
 
 // External Components
@@ -24,15 +24,12 @@ export class AssetComponent implements OnInit {
   public categories = Categories;
 
   @Input() asset: Asset;
-  @Input() images: Image[];
   @Input() category: Categories;
 
   constructor(private assetListService: AssetListService) {}
 
   ngOnInit(): void {
-    this.currentImgSrc = this.images.find(
-      (img: Image) => img.image_index === 0
-    ).image_asset_src;
+    this.currentImgSrc = this.asset.asset_images[0];
   }
 
   add(): void {
@@ -40,11 +37,11 @@ export class AssetComponent implements OnInit {
   }
 
   nextImage(): void {
-    if (this.images.length === this.currentImg + 1) {
+    if (this.asset.asset_images.length === this.currentImg + 1) {
       this.currentImg = 0;
     } else {
       this.currentImg = this.currentImg + 1;
     }
-    this.currentImgSrc = this.images[this.currentImg].image_asset_src;
+    this.currentImgSrc = this.asset.asset_images[this.currentImg];
   }
 }

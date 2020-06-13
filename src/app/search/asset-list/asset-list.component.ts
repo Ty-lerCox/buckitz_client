@@ -6,7 +6,7 @@ import { AssetListService } from './asset-list.service';
 import { SearchService } from '../search.service';
 
 // Interfaces & Settings
-import { Asset, Image } from './asset/settings';
+import { Asset } from './asset/settings';
 import {
   Categories,
   CategoriesValues,
@@ -19,7 +19,6 @@ import {
 })
 export class AssetListComponent implements OnInit {
   public assets: Asset[] = [];
-  public assetImages: Image[] = [];
   public category: Categories;
   public categoryValue: string;
   public categoryValues: string[] = CategoriesValues;
@@ -40,15 +39,5 @@ export class AssetListComponent implements OnInit {
     this.searchService.categoryValueChanged.subscribe((category: string) => {
       this.categoryValue = category;
     });
-  }
-
-  getImages(asset: Asset): Image[] {
-    const result: Image[] = [];
-    this.assetImages.forEach((image: Image) => {
-      if (image.image_asset_id === asset.asset_id) {
-        result.push(image);
-      }
-    });
-    return result;
   }
 }

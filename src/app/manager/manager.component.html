@@ -30,7 +30,6 @@
       <div class="col-12" *ngFor="let asset of assets">
         <app-manager-asset
           [asset]="asset"
-          [images]="getAssetImages(asset)"
           [category]="category"
           (remove)="remove(asset)"
         ></app-manager-asset>

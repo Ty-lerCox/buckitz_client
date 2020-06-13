@@ -50,13 +50,6 @@ export interface Asset {
   asset_images?: string[];
 }
 
-export interface Image {
-  image_id?: string;
-  image_index?: number;
-  image_asset_id: string;
-  image_asset_src: string;
-}
-
 export interface SessionAsset {
   session_asset_id?: string;
   session_asset_session_id: string;

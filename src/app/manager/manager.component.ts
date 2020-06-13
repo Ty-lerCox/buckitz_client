@@ -3,11 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Utility } from '../utility';
 
 // Interfaces & Settings
-import {
-  Asset,
-  SessionAsset,
-  Image,
-} from '../search/asset-list/asset/settings';
+import { Asset, SessionAsset } from '../search/asset-list/asset/settings';
 
 // Settings
 import { ManagerService } from './manager.service';
@@ -38,7 +34,6 @@ export class ManagerComponent implements OnInit {
   public faCaretDown = faCaretDown;
   public isCollapsed = true;
   public assets: Asset[] = [];
-  public assetImages: Image[] = [];
   public allAssets: Asset[] = [];
   public sessionAssets: SessionAsset[] = [];
   public category: Categories;
@@ -47,7 +42,6 @@ export class ManagerComponent implements OnInit {
   public isSearching = false;
   public currentImg = 0;
   public currentImgSrc = '';
-  public currentImages: Image[] = [];
   public modalState = false;
 
   constructor(
@@ -60,7 +54,7 @@ export class ManagerComponent implements OnInit {
   ngOnInit(): void {
     this.category = this.searchService.getCategory();
     this.categoryValue = this.searchService.getCategoryValue();
-    this.managerService.modalStateChanged.subscribe((images: Image[]) => {
+    this.managerService.modalStateChanged.subscribe((images: string[]) => {
       this.openDialog(images);
     });
     this.assetListService.assetsChanged.subscribe((assets: Asset[]) => {
@@ -109,16 +103,6 @@ export class ManagerComponent implements OnInit {
     }
   }
 
-  getAssetImages(asset: Asset): Image[] {
-    const result: Image[] = [];
-    this.assetImages.forEach((image: Image) => {
-      if (image.image_asset_id === asset.asset_id) {
-        result.push(image);
-      }
-    });
-    return result;
-  }
-
   getSuggestedYearlyIncome(): number {
     let result = 0;
     this.assets.forEach((asset: Asset) => {
@@ -128,7 +112,7 @@ export class ManagerComponent implements OnInit {
     return result;
   }
 
-  openDialog(images: Image[]) {
+  openDialog(images: string[]) {
     let dialogConfig = new MatDialogConfig();
     dialogConfig = {
       position: {
