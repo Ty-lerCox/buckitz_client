@@ -1,15 +1,8 @@
 // Core
-import { Component, OnInit, Input, Inject } from '@angular/core';
-
-// Interfaces & Settings
-import { Asset } from '../../search/asset-list/asset/settings';
+import { Component, OnInit, Inject } from '@angular/core';
 
 // External Components
-import {
-  AccessibilityConfig,
-  Image,
-  ImageEvent,
-} from '@ks89/angular-modal-gallery';
+import { Image } from '@ks89/angular-modal-gallery';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -41,13 +34,9 @@ export class ImageModalComponent implements OnInit {
       imagesToSort.push(newImage);
     });
     this.images = imagesToSort.sort((a, b) => (a.id > b.id ? 1 : -1));
-
-    console.log(data);
   }
 
-  ngOnInit(): void {
-    console.log(this.images);
-  }
+  ngOnInit(): void {}
 
   close() {
     this.dialogRef.close();
