@@ -105,10 +105,26 @@ export class ManagerComponent implements OnInit {
 
   getSuggestedYearlyIncome(): number {
     let result = 0;
-    this.assets.forEach((asset: Asset) => {
-      result = result + asset.asset_monthly_maintance;
-    });
-    result = (result / 0.3) * 12;
+    switch (this.category) {
+      case Categories.House:
+        this.assets.forEach((asset: Asset) => {
+          result = result + asset.asset_monthly_maintance;
+        });
+        result = (result / 0.3) * 12;
+        break;
+      case Categories.Cars:
+        this.assets.forEach((asset: Asset) => {
+          result = result + asset.asset_monthly_maintance;
+        });
+        result = (result / 0.1) * 12;
+        break;
+      default:
+        this.assets.forEach((asset: Asset) => {
+          result = result + asset.asset_monthly_maintance;
+        });
+        result = (result / 0.1) * 12;
+        break;
+    }
     return result;
   }
 

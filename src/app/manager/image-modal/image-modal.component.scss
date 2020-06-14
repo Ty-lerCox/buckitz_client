@@ -8,3 +8,34 @@
   min-width: 50vw;
   min-height: 5vh;
 }
+:host ::ng-deep #carousel-container > figure > a.nav-right.ng-star-inserted {
+  height: 100% !important;
+  width: 15vw !important;
+  top: 5% !important;
+}
+
+:host
+  ::ng-deep
+  #carousel-container
+  > figure
+  > a.nav-right.ng-star-inserted
+  > div {
+  top: 50%;
+  float: right !important;
+}
+
+:host ::ng-deep #carousel-container > figure > a.nav-left.ng-star-inserted {
+  height: 100% !important;
+  width: 15vw !important;
+  top: 5% !important;
+}
+
+:host
+  ::ng-deep
+  #carousel-container
+  > figure
+  > a.nav-left.ng-star-inserted
+  > div {
+  top: 50%;
+  float: left !important;
+}
