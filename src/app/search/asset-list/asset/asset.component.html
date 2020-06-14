@@ -52,15 +52,13 @@
               {{ asset.asset_cost | currency: "USD":"symbol":"1.0" }}
             </div>
             <div class="col-12">
-              {{ asset.asset_slider_1_title }} &
-              {{ asset.asset_slider_2_title }}
-            </div>
-            <div class="col-12">
-              {{ asset.asset_slider_1_value }} &
-              {{ asset.asset_slider_2_value }}
-            </div>
-            <div class="col-12">
               {{ asset.asset_slider_4_value }}
+            </div>
+            <div class="col-12">
+              {{ asset.asset_slider_1_value }} {{ asset.asset_slider_1_title }}
+            </div>
+            <div class="col-12">
+              {{ asset.asset_slider_2_value }} {{ asset.asset_slider_2_title }}
             </div>
           </div>
           <div *ngIf="category === categories.Children">

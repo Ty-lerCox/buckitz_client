@@ -48,7 +48,9 @@ export class AssetListService {
   getAssetsByCategory(category: string) {
     this.firestore
       .collection('asset', (ref) =>
-        ref.where('asset_category', '==', category).limit(10)
+        ref
+          .where('asset_category', '==', category)
+          .orderBy('asset_cost', 'desc')
       )
       .snapshotChanges()
       .subscribe((data: any) => {
