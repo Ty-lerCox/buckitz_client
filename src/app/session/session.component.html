@@ -1,7 +1,7 @@
 <div class="container">
   <div class="session rounded">
     <div class="row">
-      <div class="col-md-12 col-xs-12" style="font-size: 22px;">
+      <div class="col-md-10 col-xs-12" style="font-size: 22px;">
         <span *ngIf="!session">
           <button
             class="btn"
@@ -67,7 +67,7 @@
             />
           </div>
         </div>
-        <div class="row" style="padding-top: 10px;">
+        <div class="row" style="padding-top: 10px;" *ngIf="!user.user_income">
           <div class="col-md-12">
             <div ngbDropdown class="d-inline-block col-md-12">
               <button
@@ -79,7 +79,7 @@
                 <span *ngIf="user.user_job_title" style="color: #ffffff;">
                   {{ user.user_job_title }}</span
                 >
-                <span *ngIf="!user.user_job_title">Job Title</span>
+                <span *ngIf="!user.user_job_title">Yearly Income</span>
               </button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button
@@ -90,7 +90,6 @@
                     user.user_income = job.income
                   "
                 >
-                  {{ job.name }} -
                   {{ job.income | currency: "USD":"symbol":"1.0" }}
                 </button>
                 <button ngbDropdownItem (click)="user.user_job_title = 'Other'">
@@ -100,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div class="row" style="padding-top: 10px;">
+        <div class="row" style="padding-top: 10px;" *ngIf="user.user_income">
           <div class="col-md-12">
             <input
               type="number"

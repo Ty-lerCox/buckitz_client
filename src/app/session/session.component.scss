@@ -6,7 +6,45 @@
   padding-right: 1.5vw;
   padding-bottom: 2vh;
 }
+
 input {
   height: 36px;
   border-radius: 5px;
+}
+
+#mat-form-field-label-1 {
+  color: #182338;
+}
+
+.mat-option {
+  font-size: 12px;
+}
+
+:host ::ng-deep #cdk-overlay-0 {
+  width: 580px !important;
+}
+
+:host ::ng-deep .dropdown-item {
+  white-space: normal !important;
+  font-size: 12px;
+}
+
+#dropdownBasic1 > span {
+  font-size: 12px;
+}
+
+:host ::ng-deep #mat-form-field-label-1 > span {
+  display: none;
+}
+
+:host ::ng-deep #mat-input-0 {
+  background-color: #182338;
+}
+
+:host ::ng-deep #mat-input-2 {
+  background-color: #182338;
+}
+
+:host ::ng-deep div.mat-form-field-underline.ng-tns-c145-0.ng-star-inserted {
+  height: 0px;
 }

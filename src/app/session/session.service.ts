@@ -38,14 +38,14 @@ export class SessionService {
       .doc(sessionId)
       .snapshotChanges()
       .subscribe((session: any) => {
-        this.storage
-          .set('sessionId', this.currentSession.id)
-          .subscribe(() => {});
         this.currentSession = {
           id: session.payload.id,
           ...(session.payload.data() as Session),
         };
-        if (this.currentSession.session_share_asset_id !== '') {
+        this.storage
+          .set('sessionId', this.currentSession.id)
+          .subscribe(() => {});
+        if (Utility.isDefined(this.currentSession.session_share_asset_id)) {
           this.sharedAsset = true;
         }
         this.firestore
@@ -62,7 +62,11 @@ export class SessionService {
             });
             this.sessionChanged.emit(true);
             if (this.sharedAsset) {
-              if (this.currentSession.session_share_asset_id !== '') {
+              if (
+                Utility.isDefined(
+                  this.currentSession.session_share_asset_id !== ''
+                )
+              ) {
                 const docRef = this.firestore
                   .collection('asset')
                   .doc(this.currentSession.session_share_asset_id);

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "buckitz-91a9a"
+    "default": "buckitz-91a9a",
+    "prod": "buckitz-prod"
   }
 }

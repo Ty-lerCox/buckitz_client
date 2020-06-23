@@ -1,9 +1,11 @@
 // Core
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { map, startWith } from 'rxjs/operators';
 
 // Interfaces & Settings
 import { Session, User, Job, Jobs } from './settings';
+import { jobTitles, Job as Jobb, Groups } from './jobdata';
 
 // External Components
 import {
@@ -23,6 +25,8 @@ import {
   CategoriesValues,
   Category,
 } from '../home/category-list/settings';
+import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-session',
@@ -57,6 +61,16 @@ export class SessionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /*
+    this.filteredGroupOptions = this.myGroup.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filterGroups(value))
+    );
+    this.filteredJobOptions = this.myJob.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filterJobs(value))
+    );
+    console.log(this.filteredJobOptions);*/
     this.sessionService.sessionChanged.subscribe((session: boolean) => {
       this.session = session;
       this.sessionId = this.sessionService.getSessionId();
@@ -175,4 +189,44 @@ export class SessionComponent implements OnInit {
     this.sessionService.clearSession();
     this.router.navigateByUrl('/');
   }
+  /*
+  private _filterGroups(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    this.myJob.setValue('');
+    return this.groups.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
+  }
+
+  private _filterJobs(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    const jobs = this.allJobs
+      .filter((job: Job) => job.Group === this.myGroup.value)
+      .map((job: Job) => job.Job);
+    return jobs.filter((option: string) =>
+      option.toLowerCase().includes(filterValue)
+    );
+  }
+
+  public getRanks(job: string): string[] {
+    const result: string[] = [];
+    const splitJob: string[] = job.split(',');
+    const jobName: string = splitJob[0];
+    if (splitJob[1] !== '#') {
+      result.push(jobName + ' I - $' + splitJob[1]);
+    }
+    if (splitJob[2] !== '#') {
+      result.push(jobName + ' II - $' + splitJob[2]);
+    }
+    if (splitJob[3] !== '#') {
+      result.push(jobName + ' III - $' + splitJob[3]);
+    }
+    if (splitJob[4] !== '#') {
+      result.push(jobName + ' IV - $' + splitJob[4]);
+    }
+    if (splitJob[5] !== '#') {
+      result.push(jobName + ' V - $' + splitJob[5]);
+    }
+    return result;
+  }*/
 }
