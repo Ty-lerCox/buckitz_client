@@ -23,11 +23,13 @@ import { ManagerService } from 'src/app/manager/manager.service';
   styleUrls: ['./asset.component.scss'],
 })
 export class AssetComponent implements OnInit {
+  public isHeader = true;
   public faPlus = faPlus;
   public faCaretRight = faCaretRight;
   public currentImg = 0;
   public currentImgSrc = '';
   public categories = Categories;
+  public Utility = Utility;
 
   @Input() asset: Asset;
   @Input() category: Categories;

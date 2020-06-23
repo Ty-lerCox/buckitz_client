@@ -43,6 +43,7 @@ export class ManagerComponent implements OnInit {
   public currentImg = 0;
   public currentImgSrc = '';
   public modalState = false;
+  public Utility = Utility;
 
   constructor(
     private managerService: ManagerService,
@@ -103,32 +104,8 @@ export class ManagerComponent implements OnInit {
     }
   }
 
-  getSuggestedYearlyIncome(): number {
-    let result = 0;
-    switch (this.category) {
-      case Categories.House:
-        this.assets.forEach((asset: Asset) => {
-          result = result + asset.asset_monthly_maintance;
-        });
-        result = (result / 0.3) * 12;
-        break;
-      case Categories.Cars:
-        this.assets.forEach((asset: Asset) => {
-          result = result + asset.asset_monthly_maintance;
-        });
-        result = (result / 0.1) * 12;
-        break;
-      default:
-        this.assets.forEach((asset: Asset) => {
-          result = result + asset.asset_monthly_maintance;
-        });
-        result = (result / 0.1) * 12;
-        break;
-    }
-    return result;
-  }
-
   openDialog(assetID: string, images: string[], index: number) {
+    console.log('opening dialog');
     let dialogConfig = new MatDialogConfig();
     dialogConfig = {
       position: {

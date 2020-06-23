@@ -52,23 +52,29 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-12">
-                  Suggested Yearly Income
+                  Recommended Yearly Income
                 </div>
                 <div class="col-12">
-                  {{ getSuggestedYearlyIncome() | currency }}
+                  {{
+                    Utility.getRecommendedYearlyIncomeByAssets(
+                      category,
+                      assets
+                    ) | currency
+                  }}
                 </div>
               </div>
             </div>
           </div>
         </div>
         <!--
-      <div
-        class="col-12"
-        *ngIf="assets.length === 0"
-        style="text-align: center;"
-      >
-        <small>Select a Boat</small>
-      </div>-->
+          <div
+            class="col-12"
+            *ngIf="assets.length === 0"
+            style="text-align: center;"
+          >
+            <small>Select a Boat</small>
+          </div>
+        -->
       </div>
     </div>
   </div>
