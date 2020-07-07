@@ -4,9 +4,6 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 // Firebase
 import { AngularFirestore } from '@angular/fire/firestore';
 
-// External Components
-import { StorageMap } from '@ngx-pwa/local-storage';
-
 // Services
 import { SessionService } from 'src/app/session/session.service';
 import { SearchService } from '../search.service';
@@ -20,6 +17,7 @@ import { Asset, SessionAsset } from './asset/settings';
 export class AssetListService {
   private sessionAssets: SessionAsset[] = [];
   private assets: Asset[] = [];
+  private categoryValue = '';
 
   @Output() sessionAssetsChanged: EventEmitter<
     SessionAsset[]
@@ -28,27 +26,32 @@ export class AssetListService {
 
   constructor(
     private firestore: AngularFirestore,
-    private storage: StorageMap,
     private sessionService: SessionService,
     private searchService: SearchService
   ) {
     this.sessionService.sessionChanged.subscribe((isSession: boolean) => {
       if (isSession) {
         this.sessionAssets = [];
-        console.log('loading session assets');
-        this.getSessionAssets();
       }
     });
-    this.searchService.categoryChanged.subscribe((category: string) => {
+    this.searchService.categoryValueChanged.subscribe((category: string) => {
       this.assets = [];
-      console.log('loading assets');
-      this.getAssets(category);
+      this.categoryValue = category;
+      this.getAssetsByCategory(category);
     });
+    // this.addAssetBoat();
+    // this.addImage();
+    // this.addAssetHouse();
+    // this.addAssetChildren();
   }
 
-  getAssets(category: string) {
+  getAssetsByCategory(category: string) {
     this.firestore
-      .collection('asset', (ref) => ref.where('asset_category', '==', category))
+      .collection('asset', (ref) =>
+        ref
+          .where('asset_category', '==', category)
+          .orderBy('asset_cost', 'desc')
+      )
       .snapshotChanges()
       .subscribe((data: any) => {
         this.assets = data.map((e: any) => {
@@ -58,7 +61,7 @@ export class AssetListService {
           } as Asset;
         });
         this.assetsChanged.emit(this.assets);
-        this.sessionService.sessionChanged.emit(true);
+        this.getSessionAssets();
       });
   }
 
@@ -93,30 +96,149 @@ export class AssetListService {
     const sessionAsset: SessionAsset = {
       session_asset_session_id: this.sessionService.getSessionId(),
       session_asset_asset_id: asset.asset_id,
+      session_asset_category: this.categoryValue,
+      session_asset_monthly_cost: asset.asset_monthly_maintance,
     };
-    this.sessionAssetsChanged.emit(this.sessionAssets);
     this.firestore.collection('sessionAsset').add(sessionAsset);
   }
 
-  addAsset() {
+  addAssetCar() {
+    const asset: Asset = {
+      asset_category: 'car',
+      asset_cmb_1_title: 'Make',
+      asset_cmb_1_value: 'Tesla',
+      asset_cmb_2_title: 'Model',
+      asset_cmb_2_value: 'Model 3',
+      asset_cmb_3_title: 'Body Type',
+      asset_cmb_3_value: 'Sedan',
+      asset_cost: 45000,
+      asset_monthly_maintance: 800,
+      asset_radio_1_title: '',
+      asset_radio_1_value: '',
+      asset_radio_1_valueList: '',
+      asset_radio_2_title: '',
+      asset_radio_2_value: '',
+      asset_radio_2_valueList: '',
+      asset_slider_1_title: '',
+      asset_slider_1_value: 0,
+      asset_slider_2_title: '',
+      asset_slider_2_value: 0,
+    };
+    this.firestore.collection('asset').add(asset);
+  }
+
+  addAssetChildren() {
+    let asset: Asset = {
+      asset_category: 'children',
+      asset_cmb_1_title: 'Gender',
+      asset_cmb_1_value: 'Male',
+      asset_cmb_2_title: 'Education',
+      asset_cmb_2_value: 'High School',
+      asset_cost: 5000,
+      asset_monthly_maintance: 1050,
+    };
+    this.firestore.collection('asset').add(asset);
+    asset = {
+      asset_category: 'children',
+      asset_cmb_1_title: 'Gender',
+      asset_cmb_1_value: 'Female',
+      asset_cmb_2_title: 'Education',
+      asset_cmb_2_value: 'High School',
+      asset_cost: 5000,
+      asset_monthly_maintance: 1050,
+    };
+    this.firestore.collection('asset').add(asset);
+    asset = {
+      asset_category: 'children',
+      asset_cmb_1_title: 'Gender',
+      asset_cmb_1_value: 'Male',
+      asset_cmb_2_title: 'Education',
+      asset_cmb_2_value: 'Bachelors Degree',
+      asset_cost: 5000,
+      asset_monthly_maintance: 1700,
+    };
+    this.firestore.collection('asset').add(asset);
+    asset = {
+      asset_category: 'children',
+      asset_cmb_1_title: 'Gender',
+      asset_cmb_1_value: 'Female',
+      asset_cmb_2_title: 'Education',
+      asset_cmb_2_value: 'Bachelors Degree',
+      asset_cost: 5000,
+      asset_monthly_maintance: 1700,
+    };
+    this.firestore.collection('asset').add(asset);
+    asset = {
+      asset_category: 'children',
+      asset_cmb_1_title: 'Gender',
+      asset_cmb_1_value: 'Male',
+      asset_cmb_2_title: 'Education',
+      asset_cmb_2_value: 'Masters Degree',
+      asset_cost: 5000,
+      asset_monthly_maintance: 2000,
+    };
+    this.firestore.collection('asset').add(asset);
+    asset = {
+      asset_category: 'children',
+      asset_cmb_1_title: 'Gender',
+      asset_cmb_1_value: 'Female',
+      asset_cmb_2_title: 'Education',
+      asset_cmb_2_value: 'Masters Degree',
+      asset_cost: 5000,
+      asset_monthly_maintance: 2000,
+    };
+    this.firestore.collection('asset').add(asset);
+  }
+
+  addAssetHouse() {
+    const asset: Asset = {
+      asset_category: 'house',
+      asset_cmb_1_title: 'Location',
+      asset_cmb_1_value: 'Charleston, SC',
+      asset_cost: 12500000,
+      asset_monthly_maintance: 75000,
+      asset_radio_1_title: 'Type',
+      asset_radio_1_value: 'for sale',
+      asset_radio_1_valueList: 'all,rent,for sale',
+      asset_slider_1_title: 'Beds',
+      asset_slider_1_value: 5,
+      asset_slider_2_title: 'Baths',
+      asset_slider_2_value: 6,
+      asset_slider_3_title: 'sqft',
+      asset_slider_3_value: 7800,
+      asset_slider_4_title: 'Year',
+      asset_slider_4_value: 1835,
+      asset_slider_5_title: 'Lot Size',
+      asset_slider_5_value: 0.6,
+      asset_source:
+        'https://www.zillow.com/homedetails/1130-Holloway-Ct-Johns-Island-SC-29455/80214695_zpid/',
+    };
+    this.firestore.collection('asset').add(asset);
+  }
+
+  addAssetBoat() {
     const asset: Asset = {
       asset_category: 'boat',
-      asset_cost: 4500000,
-      asset_desc_1: 'used',
-      asset_desc_2: 'sail',
-      asset_desc_3: '157',
-      asset_desc_4: 'Newport, RI',
-      asset_desc_5: 'Diesel',
-      asset_img_01:
-        'https://images.boattrader.com/resize/1/82/88/6818288_20180823153122449_1_LARGE.jpg?w=1600&h=800&t=1535145392000',
-      asset_img_02:
-        'https://images.boattrader.com/resize/1/82/88/6818288_20180823120223156_1_LARGE.jpg?w=1600&h=800&t=1535144874000',
-      asset_make: 'Palmer Johnson',
-      asset_model: 'Tri-Masted Staysail',
-      asset_monthly_maintance: 0,
-      asset_name: '1983 Palmer Johnson',
-      asset_type: 'sail',
-      asset_year: 1983,
+      asset_cmb_1_title: 'location',
+      asset_cmb_1_value: 'Onalaska, TX',
+      asset_cmb_2_title: 'Make',
+      asset_cmb_2_value: 'Tracker',
+      asset_cmb_3_title: 'Model',
+      asset_cmb_3_value: 'Pro Team 195 TXW',
+      asset_cost: 30000,
+      asset_monthly_maintance: 400,
+      asset_radio_1_title: 'condition',
+      asset_radio_1_value: 'new',
+      asset_radio_1_valueList: 'all,new,used',
+      asset_radio_2_title: 'type',
+      asset_radio_2_value: 'power',
+      asset_radio_2_valueList: 'all,sail,power',
+      asset_slider_1_title: 'length',
+      asset_slider_1_value: 19,
+      asset_slider_2_title: 'year',
+      asset_slider_2_value: 2020,
+      asset_source:
+        'https://www.boats.com/power-boats/2020-tracker-pro-team-195-txw-tournament-edition-7375068/',
     };
     this.firestore.collection('asset').add(asset);
   }

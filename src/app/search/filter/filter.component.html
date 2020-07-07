@@ -1,4 +1,4 @@
-<div style="margin-top: 3.5vh; margin-left: 2.5vw; margin-right: 4vw;">
+<div style="margin-top: 3.5vh;">
   <div
     class="row rounded"
     style="
@@ -12,28 +12,70 @@
   >
     <div class="col-xs-9">
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12" *ngIf="Utility.isDefined(radio1Title)">
           <app-button-checkbox
-            (valueChanged)="desc1Changed($event)"
-            [options]="desc1"
+            [options]="radio1ValueList"
           ></app-button-checkbox>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12" *ngIf="Utility.isDefined(radio2Title)">
           <app-button-checkbox
-            (valueChanged)="desc2Changed($event)"
-            [options]="desc2"
+            [options]="radio2ValueList"
           ></app-button-checkbox>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12" *ngIf="Utility.isDefined(radio3Title)">
+          <app-button-checkbox
+            [options]="radio3ValueList"
+          ></app-button-checkbox>
+        </div>
+        <div class="col-xs-12" *ngIf="Utility.isDefined(radio4Title)">
+          <app-button-checkbox
+            [options]="radio4ValueList"
+          ></app-button-checkbox>
+        </div>
+        <div class="col-xs-12" *ngIf="Utility.isDefined(radio5Title)">
+          <app-button-checkbox
+            [options]="radio5ValueList"
+          ></app-button-checkbox>
+        </div>
+        <div class="col-xs-12" *ngIf="Utility.isDefined(radio6Title)">
+          <app-button-checkbox
+            [options]="radio6ValueList"
+          ></app-button-checkbox>
+        </div>
+        <div class="col-xs-12" *ngIf="Utility.isDefined(cmb1Title)">
           <app-dropdown
-            (valueChanged)="desc3Changed($event)"
-            [options]="desc3"
+            [title]="cmb1Title"
+            [options]="cmb1ValueList"
           ></app-dropdown>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12" *ngIf="Utility.isDefined(cmb2Title)">
           <app-dropdown
-            (valueChanged)="desc4Changed($event)"
-            [options]="desc4"
+            [title]="cmb2Title"
+            [options]="cmb2ValueList"
+          ></app-dropdown>
+        </div>
+        <div class="col-xs-12" *ngIf="Utility.isDefined(cmb3Title)">
+          <app-dropdown
+            [title]="cmb3Title"
+            [options]="cmb3ValueList"
+          ></app-dropdown>
+        </div>
+        <div class="col-xs-12" *ngIf="Utility.isDefined(cmb4Title)">
+          <app-dropdown
+            [title]="cmb4Title"
+            [options]="cmb4ValueList"
+          ></app-dropdown>
+        </div>
+        <div class="col-xs-12" *ngIf="Utility.isDefined(cmb5Title)">
+          <app-dropdown
+            [title]="cmb5Title"
+            [options]="cmb5ValueList"
+          ></app-dropdown>
+        </div>
+        <div class="col-xs-12" *ngIf="Utility.isDefined(cmb6Title)">
+          <app-dropdown
+            [title]="cmb6Title"
+            [options]="cmb6ValueList"
           ></app-dropdown>
         </div>
       </div>
@@ -41,7 +83,9 @@
     <div class="col-xs-2" style="margin-left: 15px; margin-right: 15px;">
       <input
         type="text"
-        placeholder="Search Make, Model"
+        placeholder="Search {{
+          cmb1Title + ', ' + cmb2Title + ', etc.' | lowercase
+        }}"
         class="form-control"
         autocomplete="off"
         style="width: 100%;"

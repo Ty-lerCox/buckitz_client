@@ -5,10 +5,10 @@
   <label
     ngbButtonLabel
     class="btn-primary"
-    *ngFor="let choice of options.choices"
+    *ngFor="let option of options"
     style="font-size: 13px; border: 1px #202b43 solid;"
   >
-    <input type="checkbox" ngbRadioGroup (change)="valueChanged.emit(choice)" />
-    {{ choice }}
+    <input type="checkbox" ngbRadioGroup (change)="valueChanged.emit(option)" />
+    {{ option | titlecase }}
   </label>
 </div>

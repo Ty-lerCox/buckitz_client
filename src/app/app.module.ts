@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -14,6 +14,10 @@ import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 // Components
 import { AppComponent } from './app.component';
@@ -26,7 +30,6 @@ import { CategoryListComponent } from './home/category-list/category-list.compon
 import { CategoryComponent } from './home/category-list/category/category.component';
 import { BuckitComponent } from './home/buckit-list/buckit/buckit.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ManagerComponent } from './manager/manager.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,6 @@ import { ManagerComponent } from './manager/manager.component';
     CategoryComponent,
     BuckitComponent,
     NavbarComponent,
-    ManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,11 @@ import { ManagerComponent } from './manager/manager.component';
     FontAwesomeModule,
     FormsModule,
     ClipboardModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    ScrollToModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
   ],

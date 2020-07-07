@@ -34,9 +34,15 @@
             Manage Session
           </button></span
         >
-        <span *ngIf="isCollapsed" style="font-size: 12px;">
-          Available: {{ getTotalIncome() | currency: "USD":"symbol":"1.0" }}
-        </span>
+        <div *ngIf="isCollapsed" style="font-size: 12px; text-align: center;">
+          Available:
+          <span *ngIf="0 > getTotalIncome()" style="color: red;">{{
+            getTotalIncome() | currency: "USD":"symbol":"1.0"
+          }}</span>
+          <span *ngIf="getTotalIncome() >= 0">{{
+            getTotalIncome() | currency: "USD":"symbol":"1.0"
+          }}</span>
+        </div>
       </div>
       <div
         *ngIf="!isCollapsed"
@@ -61,7 +67,7 @@
             />
           </div>
         </div>
-        <div class="row" style="padding-top: 10px;">
+        <div class="row" style="padding-top: 10px;" *ngIf="!user.user_income">
           <div class="col-md-12">
             <div ngbDropdown class="d-inline-block col-md-12">
               <button
@@ -73,7 +79,7 @@
                 <span *ngIf="user.user_job_title" style="color: #ffffff;">
                   {{ user.user_job_title }}</span
                 >
-                <span *ngIf="!user.user_job_title">Job Title</span>
+                <span *ngIf="!user.user_job_title">Yearly Income</span>
               </button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button
@@ -84,7 +90,6 @@
                     user.user_income = job.income
                   "
                 >
-                  {{ job.name }} -
                   {{ job.income | currency: "USD":"symbol":"1.0" }}
                 </button>
                 <button ngbDropdownItem (click)="user.user_job_title = 'Other'">
@@ -94,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div class="row" style="padding-top: 10px;">
+        <div class="row" style="padding-top: 10px;" *ngIf="user.user_income">
           <div class="col-md-12">
             <input
               type="number"
@@ -127,7 +132,12 @@
           Total Available Income:
         </div>
         <div class="col-12">
-          {{ getTotalIncome() | currency: "USD":"symbol":"1.0" }}
+          <span *ngIf="0 > getTotalIncome()" style="color: red;">{{
+            getTotalIncome() | currency: "USD":"symbol":"1.0"
+          }}</span>
+          <span *ngIf="getTotalIncome() >= 0">{{
+            getTotalIncome() | currency: "USD":"symbol":"1.0"
+          }}</span>
         </div>
       </div>
       <div *ngIf="!session" class="row" style="padding-top: 65px;">
@@ -144,6 +154,16 @@
           </button>
         </div>
       </div>
+      <div>
+        <div *ngIf="session" class="col-md-12" style="padding-top: 10px;">
+          <button
+            class="btn btn-primary col-md-12"
+            [cdkCopyToClipboard]="sessionId"
+          >
+            Copy Session ID
+          </button>
+        </div>
+      </div>
       <div *ngIf="isJoining" class="row" style="padding-top: 35px;">
         <div class="col-md-12">
           <input
@@ -154,16 +174,6 @@
             autocomplete="off"
             [(ngModel)]="sessionId"
           />
-        </div>
-      </div>
-      <div>
-        <div *ngIf="session" class="col-md-12" style="padding-top: 10px;">
-          <button
-            class="btn btn-primary col-md-12"
-            [cdkCopyToClipboard]="sessionId"
-          >
-            Copy Session ID
-          </button>
         </div>
       </div>
       <div class="row" style="padding-top: 10px;">

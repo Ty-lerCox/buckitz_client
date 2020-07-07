@@ -11,15 +11,18 @@ import { ManagerService } from './manager.service';
 // Services
 import { AssetListService } from '../search/asset-list/asset-list.service';
 
+// Components
+import { ImageModalComponent } from './image-modal/image-modal.component';
+
 // External Components
 import {
   faMinus,
   faCaretRight,
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
-import { SessionService } from '../session/session.service';
-import { Session } from 'protractor';
 import { SearchService } from '../search/search.service';
+import { Categories, CategoriesValues } from '../home/category-list/settings';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-manager',
@@ -33,15 +36,28 @@ export class ManagerComponent implements OnInit {
   public assets: Asset[] = [];
   public allAssets: Asset[] = [];
   public sessionAssets: SessionAsset[] = [];
+  public category: Categories;
+  public categoryValue: string;
+  public categoryValues: string[] = CategoriesValues;
   public isSearching = false;
+  public currentImg = 0;
+  public currentImgSrc = '';
+  public modalState = false;
+  public Utility = Utility;
 
   constructor(
     private managerService: ManagerService,
     private assetListService: AssetListService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
+    this.category = this.searchService.getCategory();
+    this.categoryValue = this.searchService.getCategoryValue();
+    this.managerService.modalStateChanged.subscribe((data: any) => {
+      this.openDialog(data.id, data.images, data.index);
+    });
     this.assetListService.assetsChanged.subscribe((assets: Asset[]) => {
       this.allAssets = assets;
     });
@@ -60,10 +76,19 @@ export class ManagerComponent implements OnInit {
         });
       }
     );
-    this.searchService.categoryChanged.subscribe((category: string) => {
-      if (category !== '' && Utility.isDefined(category)) {
-        this.isSearching = true;
+    this.searchService.categoryValueChanged.subscribe((category: string) => {
+      this.categoryValue = category;
+    });
+    this.searchService.categoryChanged.subscribe((category: Categories) => {
+      this.category = category;
+      if (Utility.isDefined(category)) {
+        setTimeout(() => {
+          this.isSearching = true;
+        });
       }
+    });
+    this.assets.forEach((asset: Asset) => {
+      asset.asset_current_img = 0;
     });
   }
 
@@ -77,5 +102,26 @@ export class ManagerComponent implements OnInit {
       );
       this.assetListService.deleteAsset(sessionAsset);
     }
+  }
+
+  openDialog(assetID: string, images: string[], index: number) {
+    console.log('opening dialog');
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig = {
+      position: {
+        top: '0px',
+        right: '0px',
+      },
+      height: '100vh',
+      width: '100vw',
+      maxWidth: '',
+      panelClass: 'full-screen-modal',
+      data: {
+        id: assetID,
+        dataImages: images,
+        index,
+      },
+    };
+    this.matDialog.open(ImageModalComponent, dialogConfig);
   }
 }
